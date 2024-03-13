@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { IUser } from 'src/models/usuario';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +9,29 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   session: any = null;
+  rol: string = 'sin_rol';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
-  login(username: string, password: string){
-    if (username === 'usuario1' && password === '123') {
+  login(user: IUser){
+    if (user.username === 'usuario1' && user.password === '123') {
       alert('Inicio de sesión correcto');
       this.session = { username: 'usuario1' };
-      console.log("holahola quieres subir");
       this.router.navigate(['/inicio']);
     } else{
       alert('Error al iniciar sesión');
     }
+
+    // this.apiService.loginUser(user).subscribe(
+    //   response => {
+    //     alert('Inicio de sesión correcto');
+    //     this.session = { username: 'usuario1' };
+    //     this.router.navigate(['/inicio']);
+    //   },
+    //   error => {
+    //     alert('Error al iniciar sesión');
+    //     console.error(error);
+    //   });
   }
 
   logout(){

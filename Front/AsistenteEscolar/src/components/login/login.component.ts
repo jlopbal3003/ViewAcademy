@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IUser } from 'src/models/usuario';
 import { AuthService } from 'src/services/auth.service';
 
 @Component({
@@ -9,15 +10,14 @@ import { AuthService } from 'src/services/auth.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  user: IUser = {username: '', password: ''};
 
-  constructor(private authService: AuthService){
-
-  }
+  constructor(private authService: AuthService){ }
 
   onSubmit() {
     console.log('Usuario:', this.username);
     console.log('Contraseña:', this.password);
-
-    this.authService.login(this.username, this.password);
+    this.user = {username: this.username, password: this.password};
+    this.authService.login(this.user);
   }
 }
