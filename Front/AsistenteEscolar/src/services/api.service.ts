@@ -9,11 +9,11 @@ import { IUser } from 'src/models/usuario';
 })
 export class ApiService {
 
-  url: string = 'https://ia-kong-dev.codingbuddy-4282826dce7d155229a320302e775459-0000.eu-de.containers.appdomain.cloud/api';
+  url: string = 'http://localhost:4000';
 
   constructor(private http: HttpClient) { }
 
   loginUser(user: IUser): Observable<any> {
-    return this.http.post<any>(this.url+'/login', user);
+    return this.http.post<any>(this.url+'/users/login', user);
   }
 }
