@@ -1,1 +1,3 @@
 <p>hola!</p>
+<a *ngIf="authService.session" href="#" (click)="authService.logout">Logout</a>
+<router-outlet></router-outlet>
