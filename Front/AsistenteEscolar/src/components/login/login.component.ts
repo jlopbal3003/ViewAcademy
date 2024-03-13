@@ -8,16 +8,16 @@ import { AuthService } from 'src/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
-  user: IUser = {username: '', password: ''};
+  user: IUser = {email: '', password: ''};
 
   constructor(private authService: AuthService){ }
 
   onSubmit() {
-    console.log('Usuario:', this.username);
+    console.log('Usuario:', this.email);
     console.log('Contraseña:', this.password);
-    this.user = {username: this.username, password: this.password};
+    this.user = {email: this.email, password: this.password};
     this.authService.login(this.user);
   }
 }
