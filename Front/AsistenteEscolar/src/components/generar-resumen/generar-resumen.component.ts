@@ -22,7 +22,7 @@ export class GenerarResumenComponent {
     const formData = new FormData();
     formData.append('pdfFile', this.pdfFile);
 
-    this.apiService.uploadSummary(formData).subscribe(
+    this.apiService.uploadPdf(formData).subscribe(
       (response: any) => {
         console.log('Archivo PDF subido exitosamente:', response);
       },

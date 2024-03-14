@@ -16,9 +16,8 @@ export class ApiService {
     return this.http.post<any>(this.url+'/users/login', user);
   }
 
-  uploadSummary(formData: FormData): Observable<any> {
-    const uploadUrl = `${this.url}/upload-pdf`;
+  uploadPdf(formData: FormData): Observable<any> {
 
-    return this.http.post(uploadUrl, formData);
+    return this.http.post(this.url+'/upload-pdf', formData);
   }
 }
