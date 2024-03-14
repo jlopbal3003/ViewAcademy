@@ -1,4 +1,4 @@
-
+const { llamadaSubirDocumento, llamadaPreguntaDocumento } = require('./EvaluacionCompetencias.js');
 const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./calls');
 const express = require('express');
 const router = express.Router();
@@ -6,6 +6,19 @@ const router = express.Router();
 router.get('/', (req, res) => {
 	  res.send('Hello World!');
 });
+/************************EVALUACION DE COMPETENCIAS***************************/
+
+router.get('/evaluacion', async (req, res) => {
+    try {
+        const respuesta = await llamadaPreguntaDocumento();
+        res.json({ evaluacion: respuesta });
+    } catch (error) {
+        console.error("Error al hacer la llamada:", error);
+        res.status(500).json({ error: "Hubo un error al obtener la pregunta del documento." });
+    }
+});
+
+/*****************ASISTENTE VIRTUAL***************************/
 
 router.get('/av', async (req, res) => {
 	await llamadaAsistenteApi(res, contentsByRoute['/av']);

@@ -88,4 +88,6 @@ const headers = {
 		res.status(500).send('Error al realizar la solicitud a la API');
 	}
  }
+
+
  module.exports = {contentsByRoute, llamadaAsistenteApi, llamadaAsistenteApiPost };
