@@ -32,62 +32,62 @@ const headers = {
 	let lastUUID ;
 	async function llamadaAsistenteApi(res,content){
 		let uuid = generarUuid();
-	try {
-		const apiResponse = await axios.post(apiUrl, {
-			model: "gpt-35-turbo-0301",
-			uuid: uuid,
-			message: {
-			  role: "user",
-			  content: content,
-			},
-			temperature: 0.05,
-			origin: "escueladata",
-			tokens: 1000,
-			folder: "root",
-			account:"WatsonX-VN",
-			user: ""
-		}, { headers });
-		lastUUID = uuid;
-		res.send(apiResponse.data.content);
-		return apiResponse.data.content;
-	}
-	catch (error) {
-		console.error('Error al realizar la solicitud a la API:', error.message);
-		if (error.response) {
-		console.error('Respuesta de la API:', error.response.data);
-		console.error('Código de estado:', error.response.status);
+		try {
+			const apiResponse = await axios.post(apiUrl, {
+				model: "gpt-35-turbo-0301",
+				uuid: uuid,
+				message: {
+				role: "user",
+				content: content,
+				},
+				temperature: 0.05,
+				origin: "escueladata",
+				tokens: 1000,
+				folder: "root",
+				account:"WatsonX-VN",
+				user: ""
+			}, { headers });
+			lastUUID = uuid;
+			var formattedResponse = apiResponse.data.content.replace(/^AI##/, '');
+			res.json({respuesta: formattedResponse});
 		}
-		res.status(500).send('Error al realizar la solicitud a la API');
-	}
- }
+		catch (error) {
+			console.error('Error al realizar la solicitud a la API:', error.message);
+			if (error.response) {
+			console.error('Respuesta de la API:', error.response.data);
+			console.error('Código de estado:', error.response.status);
+			}
+			res.status(500).send('Error al realizar la solicitud a la API');
+		}
+ 	}
  	async function llamadaAsistenteApiPost(res,content, i){
-	try {
-		const apiResponse = await axios.post(apiUrl, {
-			model: "gpt-35-turbo-0301",
-			uuid: lastUUID,
-			message: {
-			  role: "user",
-			  content: content,//prompt usuario
-			},
-			temperature: 0.05,
-			origin: "escueladata",
-			tokens: 1000,
-			folder: "root",
-			account:"WatsonX-VN",
-			user: ""
-		}, {method: 'POST', headers });
-
-		res.send(apiResponse.data.content);
-	}
-	catch (error) {
-		console.error('Error al realizar la solicitud a la API:', error.message);
-		if (error.response) {
-		console.error('Respuesta de la API:', error.response.data);
-		console.error('Código de estado:', error.response.status);
+		try {
+			const apiResponse = await axios.post(apiUrl, {
+				model: "gpt-35-turbo-0301",
+				uuid: lastUUID,
+				message: {
+				role: "user",
+				content: content,
+				},
+				temperature: 0.05,
+				origin: "escueladata",
+				tokens: 1000,
+				folder: "root",
+				account:"WatsonX-VN",
+				user: ""
+			}, {method: 'POST', headers });
+			var formattedResponse=  apiResponse.data.content;
+			res.json ({respuesta: formattedResponse});
 		}
-		res.status(500).send('Error al realizar la solicitud a la API');
-	}
- }
+		catch (error) {
+			console.error('Error al realizar la solicitud a la API:', error.message);
+			if (error.response) {
+			console.error('Respuesta de la API:', error.response.data);
+			console.error('Código de estado:', error.response.status);
+			}
+			res.status(500).send('Error al realizar la solicitud a la API');
+		}
+ 	}
 
 
  module.exports = {contentsByRoute, llamadaAsistenteApi, llamadaAsistenteApiPost };

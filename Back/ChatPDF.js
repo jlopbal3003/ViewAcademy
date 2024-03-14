@@ -12,9 +12,9 @@ async function uploadFile(archivo) {
         console.error('El archivo no se encuentra en la ruta especificada.');
         return;
     }
-    
+
     const file = fs.createReadStream(archivo);
-    
+
     const formData = {
         file: file,
         index: indice,
@@ -27,7 +27,7 @@ async function uploadFile(archivo) {
         renderizarImagenes: 'false',
         vectorizarFile: 'false'
     };
-    
+
     try {
         const response = await axios.post('https://ia-kong-dev.codingbuddy-4282826dce7d155229a320302e775459-0000.eu-de.containers.appdomain.cloud/api/plugin/any-client', formData, {
             headers: {
@@ -36,12 +36,13 @@ async function uploadFile(archivo) {
             }
         });
         console.log('Archivo subido exitosamente.');
-        return response.data; 
+        return response.data;
     } catch (error) {
         console.error('Error al subir archivo:', error.response.status);
         return Promise.reject(error);
     }
 }
+let prompt = "Tienes un rol de profesor e intentarás explicar lo mejor posible cualquier pregunta sobre el contexto proporcionado. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada."
 
 async function sendConversation(mensaje) {
     const requestBody = {
@@ -49,7 +50,7 @@ async function sendConversation(mensaje) {
         "uuid": indice,
         "message": {
             "role": "user",
-            "content": mensaje
+            "content": prompt + "\n" + mensaje
         },
         "index": indice,
         "vectorization_model": "text-embedding-ada-002-1",
@@ -59,7 +60,6 @@ async function sendConversation(mensaje) {
         "folder": "root",
         "account": "WatsonX-VN",
         "user": "prueba@gmail.com",
-        "prompt": "Tienes un rol de profesor e intentarás explicar lo mejor posible cualquier pregunta sobre el contexto proporcionado. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada."
     };
 
     try {
@@ -70,18 +70,9 @@ async function sendConversation(mensaje) {
             }
         });
         console.log('Solicitud de conversación enviada exitosamente.');
-        return response.data; 
+        return response.data;
     } catch (error) {
         console.error('Error al enviar la solicitud de conversación:', error.response.status);
         return Promise.reject(error);
     }
 }
-
-(async () => {
-    var archivo = "C:\\Users\\anuar\\Desktop\\AsistenteEscolar\\GenerarResumen\\Archivos\\prueba.pdf";
-    var mensaje = "Explicaion guerra civil española";
-    await uploadFile(archivo);
-    const conversationResponse = await sendConversation(mensaje);
-    const cleanedContent = conversationResponse.content.replace(/^AI##/, ''); 
-    console.log('\n', cleanedContent);
-})();
