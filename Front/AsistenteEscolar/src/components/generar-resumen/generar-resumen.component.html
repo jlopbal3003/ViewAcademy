@@ -1,2 +1,11 @@
 <p>generar-resumen works!</p>
+
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div>
+      <label for="pdfFile">Seleccionar archivo PDF:</label>
+      <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" (change)="onFileSelected($event)" required>
+    </div>
+    <button type="submit" [disabled]="!pdfFile">Subir PDF</button>
+  </form>
+
 <button (click)="this.authService.goToMainPage()">Volver al menú principal</button>
