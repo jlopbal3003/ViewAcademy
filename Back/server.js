@@ -1,9 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const {llamadaAsistenteApiPost} = require('./llamada');
+const {llamadaAsistenteApiPost} = require('./calls');
 const app = express();
-const rutas = require('./rutas');
+const routes = require('./routes');
 const PORT = 3000;
 
 app.use(cors());
@@ -12,7 +12,7 @@ app.options('*', cors({
     allowedHeaders: ['Content-Type'],
   }));
 
-app.use('/', rutas);
+app.use('/', routes);
 
 app.listen(PORT, () => {
     console.log(`Servidor disponible en http://localhost:${PORT}`);

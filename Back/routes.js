@@ -1,5 +1,5 @@
 
-const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./llamada');
+const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./calls');
 const express = require('express');
 const router = express.Router();
 
