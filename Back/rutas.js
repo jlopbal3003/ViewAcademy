@@ -1,5 +1,5 @@
 
-const { llamadaAsistenteApi, contentsByRoute } = require('./llamada');
+const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./llamada');
 const express = require('express');
 const router = express.Router();
 
@@ -16,25 +16,43 @@ router.get('/biologia', async (req, res) => {
 });
 
 router.get('/historia', async (req, res) => {
-    const content = contentsByRoute['/historia'];
-    await llamadaAsistenteApi(res, content);
+    await llamadaAsistenteApi(res, contentsByRoute['/historia']);
 });
 
 router.get('/lengua', async (req, res) => {
-    const content = contentsByRoute['/lengua'];
-    await llamadaAsistenteApi(res, content);
-
+    await llamadaAsistenteApi(res, contentsByRoute['/lengua']);
 });
 
 router.get('/profesor', async (req, res) => {
-	const content = contentsByRoute['/profesor'];
-	await llamadaAsistenteApi(res, content);
+	await llamadaAsistenteApi(res, contentsByRoute['/profesor']);
+});
+
+router.get('/mates', async (req, res) => {
+    await llamadaAsistenteApi(res, contentsByRoute['/mates']);
 });
 
 router.post('/avinput',  (req, res) => {
-    const content = req.body.content;
-    console.log(content);
-    llamadaAsistenteApi(res, content);
+    llamadaAsistenteApiPost(res, req.body.content, '/av');
+});
+
+router.post('/bioinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/biologia');
+});
+
+router.post('/histinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/historia');
+});
+
+router.post('/leninput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/lengua');
+});
+
+router.post('/profinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/profesor');
+});
+
+router.post('/matesinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/mates');
 });
 
 module.exports = router;
