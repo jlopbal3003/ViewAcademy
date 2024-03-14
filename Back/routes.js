@@ -9,9 +9,8 @@ router.get('/', (req, res) => {
 /************************EVALUACION DE COMPETENCIAS***************************/
 router.post('/upevaluacion', async (req, res) => {
     try {
-        req.params = { archivo: './files/NotasAlumnos.pdf' };
         console.log("Subiendo documento...");
-        const respuesta = await llamadaSubirDocumento(req.params.archivo);
+        const respuesta = await llamadaSubirDocumento(req.body.archivo);
         res.json({ subirDocumento: respuesta });
         console.log("Documento subido.");
     } catch (error) {
@@ -23,7 +22,6 @@ router.post('/upevaluacion', async (req, res) => {
 router.get('/evaluacion', async (req, res) => {
 
     try {
-        console.log("Subiendo documento...");
         const respuesta = await llamadaPreguntaDocumento();
         res.json({ evaluacion: respuesta });
     } catch (error) {
