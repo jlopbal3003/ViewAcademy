@@ -97,33 +97,27 @@ router.get('/mates', async (req, res) => {
 });
 
 router.post('/avinput',  (req, res) => {
-    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/av');
-    res.json({ respuesta: respuesta });
+    llamadaAsistenteApiPost(res, req.body.content, '/av');
 });
 
 router.post('/inginput',  (req, res) => {
-    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/ingles');
-    res.json({ respuesta: respuesta });
+    llamadaAsistenteApiPost(res, req.body.content, '/ingles');
 });
 
 router.post('/histinput',  (req, res) => {
-    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/historia');
-    res.json({ respuesta: respuesta });
+    llamadaAsistenteApiPost(res, req.body.content, '/historia');
 });
 
 router.post('/leninput',  (req, res) => {
-    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/lengua');
-    res.json({ respuesta: respuesta });
+    llamadaAsistenteApiPost(res, req.body.content, '/lengua');
 });
 
 router.post('/profinput',  (req, res) => {
-    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/profesor');
-    res.json({ respuesta: respuesta });
+    llamadaAsistenteApiPost(res, req.body.content, '/profesor');
 });
 
 router.post('/matesinput',  (req, res) => {
-    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/mates');
-    res.json({ respuesta: respuesta });
+    llamadaAsistenteApiPost(res, req.body.content, '/mates');
 });
 
 module.exports = router;
