@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-var indice = uuidv4(); // Genera un nombre único aleatorio
+var indice = uuidv4(); 
 
 async function uploadFile(archivo) {
     const formData = new FormData();
@@ -14,7 +14,7 @@ async function uploadFile(archivo) {
         return;
     }
 
-    const file = fs.createReadStream(archivo);
+    var file = fs.createReadStream(archivo);
 
     formData.append('file', file);
     formData.append('index', indice);
@@ -35,10 +35,10 @@ async function uploadFile(archivo) {
             }
         });
         console.log('Archivo subido exitosamente.');
-        return response.data;
+        return response.data.content;
     } catch (error) {
         console.error('Error al subir archivo:', error.response.status);
-        return Promise.reject(error);
+        return (error);
     }
 }
 
@@ -75,12 +75,5 @@ async function sendConversation() {
         return Promise.reject(error);
     }
 }
-/*
-(async () => {
-    //Cambiar url del archivo lo demás se deja igual(en principio)
-    var archivo = "C:\\Users\\anuar\\Desktop\\AsistenteEscolar\\GenerarResumen\\Archivos\\prueba.pdf";
-    await uploadFile(archivo);
-    const conversationResponse = await sendConversation();
-    const cleanedContent = conversationResponse.content.replace(/^AI##/, '');
-    console.log('\n', cleanedContent);
-})();*/
+
+module.exports = { uploadFile, sendConversation };

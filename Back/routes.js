@@ -1,4 +1,5 @@
 const { llamadaSubirDocumento, llamadaPreguntaDocumento } = require('./EvaluacionCompetencias.js');
+const { uploadFile ,sendConversation} = require('./Resumen.js');
 const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./calls');
 const express = require('express');
 const router = express.Router();
@@ -32,6 +33,16 @@ router.get('/evaluacion', async (req, res) => {
 
 /*******************************resumen*****************/
 
+router.post('/upresumen', async (req, res) => {
+    const respuesta  = await uploadFile(req.body.archivo);
+    res.json({ subirDocumento: respuesta });
+});
+
+router.get('/resumen', async (req, res) => {
+    const apiresponse = await sendConversation();
+    const cleanedContent = apiresponse.content.replace(/^AI##/, '');
+    res.json({ resumen: cleanedContent });
+});
 
 /*****************ASISTENTE VIRTUAL***************************/
 
