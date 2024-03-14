@@ -1,35 +1,58 @@
 
-const { llamadaAsistenteApi, contentsByRoute } = require('./llamada');
+const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./llamada');
 const express = require('express');
-
 const router = express.Router();
 
 router.get('/', (req, res) => {
 	  res.send('Hello World!');
 });
 
-router.get('/av', (req, res) => {
-    const content = contentsByRoute['/av'];
-	llamadaAsistenteApi(res, content);
-    res.send('Petición realizada');
+router.get('/av', async (req, res) => {
+	await llamadaAsistenteApi(res, contentsByRoute['/av']);
 });
 
-router.get('/biologia', (req, res) => {
-    const content = contentsByRoute['/biologia'];
-    llamadaAsistenteApi(res, content);
-    res.send('Petición realizada');
+router.get('/ingles', async (req, res) => {
+    await llamadaAsistenteApi(res, contentsByRoute['/ingles']);
 });
 
-router.get('/historia', (req, res) => {
-    const content = contentsByRoute['/historia'];
-    llamadaAsistenteApi(res, content);
-    res.send('Petición realizada');
+router.get('/historia', async (req, res) => {
+    await llamadaAsistenteApi(res, contentsByRoute['/historia']);
 });
 
-router.get('/lengua', (req, res) => {
-    const content = contentsByRoute['/lengua'];
-    llamadaAsistenteApi(res, content);
-    res.send('Petición realizada');
+router.get('/lengua', async (req, res) => {
+    await llamadaAsistenteApi(res, contentsByRoute['/lengua']);
+});
+
+router.get('/profesor', async (req, res) => {
+	await llamadaAsistenteApi(res, contentsByRoute['/profesor']);
+});
+
+router.get('/mates', async (req, res) => {
+    await llamadaAsistenteApi(res, contentsByRoute['/mates']);
+});
+
+router.post('/avinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/av');
+});
+
+router.post('/inginput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/ingles');
+});
+
+router.post('/histinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/historia');
+});
+
+router.post('/leninput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/lengua');
+});
+
+router.post('/profinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/profesor');
+});
+
+router.post('/matesinput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/mates');
 });
 
 module.exports = router;
