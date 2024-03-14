@@ -1,2 +1,44 @@
-<p>asistente-virtual works!</p>
-<button (click)="this.authService.goToMainPage()">Volver al menú principal</button>
+<section class="p-5 mt-0 align-items-center min-vh-100"
+    style="background-image: url(../../assets/images/pattern-reduced.jpg); background-repeat: repeat; background-size: 800px;">
+
+    <div id="chat" style="padding-bottom: 110px">
+
+
+        <div style="background-color: #747474" class="d-flex p-4 rounded justify-content-start mb-4">
+            <img src="https://ui-avatars.com/api/?name=Usuario" style="width: 40px; height: 40px;"
+                class="object-cover rounded-circle" alt="">
+            <div class="message w-100 px-4 rounded">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
+                distinctio neque adipisci corporis obcaecati nulla eum consequatur illum, ipsum ea.</div>
+        </div>
+
+        <div style="background-color: #333333" class="d-flex p-4 rounded justify-content-start mb-4">
+            <img src="https://ui-avatars.com/api/?name=Llama&background=CA3433&color=fff"
+                style="width: 40px; height: 40px;" class="object-cover h-8 w-8 rounded-circle" alt="">
+            <div class="reply w-100 ps-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet ad
+                perspiciatis excepturi nisi libero at. Cumque molestias nam quas doloremque rem optio illum voluptas
+                veniam ipsum soluta, repudiandae sed laboriosam illo? Ipsa deleniti numquam voluptas voluptate,
+                nesciunt beatae fugit rerum explicabo ipsum nobis vero perferendis aut enim eaque corporis ut?</div>
+        </div>
+    </div>
+
+    <div class="d-flex">
+        <div style="position: fixed; left: 0px; right: 0px; bottom: 0px" class="mx-auto">
+            <div class="pb-5 px-5">
+                <div class="mb-2">
+                    <button type="button" class="btn btn-success rounded-pill">Biología</button>
+                    <button type="button" class="btn btn-warning rounded-pill">Historia</button>
+                    <button type="button" (click)="this.authService.goToMainPage()"
+                        class="btn btn-primary rounded-pill">Atrás</button>
+                </div>
+                <span id="txtMensaje" style="border-radius: 0.75rem; border: 1px solid; border-color: #afafaf;"
+                    class="textarea removeStyle bg-light pe-5" role="textbox" contenteditable></span>
+                <div style="top: calc(100%-82px); right: 60px; bottom: 55px;" class="position-absolute">
+                    <button id="btnEnviar" class="btn btn-link text-dark">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

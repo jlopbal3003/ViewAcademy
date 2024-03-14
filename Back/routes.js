@@ -1,4 +1,5 @@
-
+const { llamadaSubirDocumento, llamadaPreguntaDocumento } = require('./EvaluacionCompetencias.js');
+const { uploadFile ,sendConversation} = require('./Resumen.js');
 const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./calls');
 const express = require('express');
 const router = express.Router();
@@ -6,6 +7,83 @@ const router = express.Router();
 router.get('/', (req, res) => {
 	  res.send('Hello World!');
 });
+/************************EVALUACION DE COMPETENCIAS***************************/
+router.post('/upevaluacion', async (req, res) => {
+    try {
+        console.log("Subiendo documento...");
+        const respuesta = await llamadaSubirDocumento(req.body.archivo);
+        res.json({ subirDocumento: respuesta });
+        console.log("Documento subido.");
+    } catch (error) {
+        console.error("Error al hacer la llamada:", error);
+        res.status(500).json({ error: "Hubo un error al subir el documento." });
+    }
+});
+
+router.get('/evaluacion', async (req, res) => {
+
+    try {
+        const respuesta = await llamadaPreguntaDocumento();
+        res.json({ evaluacion: respuesta });
+    } catch (error) {
+        console.error("Error al hacer la llamada:", error);
+        res.status(500).json({ error: "Hubo un error al obtener la pregunta del documento." });
+    }
+});
+
+/*******************************resumen*****************/
+
+router.post('/upresumen', async (req, res) => {
+    const respuesta  = await uploadFile(req.body.archivo);
+    res.json({ subirDocumento: respuesta });
+});
+
+router.get('/resumen', async (req, res) => {
+    const apiresponse = await sendConversation();
+    const cleanedContent = apiresponse.content.replace(/^AI##/, '');
+    res.json({ resumen: cleanedContent });
+});
+
+/*****************SELECCIONAR ALUMNO******************/
+
+router.post('/seleccionalumno', async (req, res) => {
+    try {
+        console.log("Subiendo documento...");
+        const respuesta = await llamadaSubirDocumento(req.body.archivo);
+        res.json({ subirDocumento: respuesta });
+        console.log("Documento subido.");
+    } catch (error) {
+        console.error("Error al hacer la llamada:", error);
+        res.status(500).json({ error: "Hubo un error al subir el documento." });
+    }
+});
+
+router.get('/seleccionalumno', async (req, res) => {
+
+    try {
+        console.log("Subiendo documento...");
+        const respuesta = await llamadaSeleccionarAlumnoAleatorio();
+        res.json({ evaluacion: respuesta });
+    } catch (error) {
+        console.error("Error al hacer la llamada:", error);
+        res.status(500).json({ error: "Hubo un error al obtener la pregunta del documento." });
+    }
+});
+
+/**********************CHATPDF***************************** */
+
+router.post('/chatpdf', async (req, res) => {
+    let respuesta = await uploadFile(req.body.archivo);
+    res.json({ subirDocumento: respuesta });
+});
+
+router.get('/chatpdf', async (req, res) => {
+    const conversationResponse = await sendConversation(req.body.content);
+    const cleanedContent = conversationResponse.content.replace(/^AI##/, '');
+    res.json({ respuesta: cleanedContent });
+});
+
+/*****************ASISTENTE VIRTUAL***************************/
 
 router.get('/av', async (req, res) => {
 	await llamadaAsistenteApi(res, contentsByRoute['/av']);
