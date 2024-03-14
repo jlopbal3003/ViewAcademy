@@ -8,14 +8,14 @@ var indice = uuidv4(); // Genera un nombre único aleatorio
 
 async function uploadFile(archivo) {
     const formData = new FormData();
-    
+
     if (!fs.existsSync(archivo)) {
         console.error('El archivo no se encuentra en la ruta especificada.');
         return;
     }
-    
+
     const file = fs.createReadStream(archivo);
-    
+
     formData.append('file', file);
     formData.append('index', indice);
     formData.append('name', indice);
@@ -26,7 +26,7 @@ async function uploadFile(archivo) {
     formData.append('modelVectorization', 'text-embedding-ada-002-1');
     formData.append('renderizarImagenes', 'false');
     formData.append('vectorizarFile', 'false');
-    
+
     try {
         const response = await axios.post('https://ia-kong-dev.codingbuddy-4282826dce7d155229a320302e775459-0000.eu-de.containers.appdomain.cloud/api/plugin/any-client', formData, {
             headers: {
@@ -35,7 +35,7 @@ async function uploadFile(archivo) {
             }
         });
         console.log('Archivo subido exitosamente.');
-        return response.data; 
+        return response.data;
     } catch (error) {
         console.error('Error al subir archivo:', error.response.status);
         return Promise.reject(error);
@@ -69,18 +69,18 @@ async function sendConversation() {
             }
         });
         console.log('Solicitud de conversación enviada exitosamente.');
-        return response.data; 
+        return response.data;
     } catch (error) {
         console.error('Error al enviar la solicitud de conversación:', error.response.status);
         return Promise.reject(error);
     }
 }
-
+/*
 (async () => {
     //Cambiar url del archivo lo demás se deja igual(en principio)
     var archivo = "C:\\Users\\anuar\\Desktop\\AsistenteEscolar\\GenerarResumen\\Archivos\\prueba.pdf";
     await uploadFile(archivo);
     const conversationResponse = await sendConversation();
-    const cleanedContent = conversationResponse.content.replace(/^AI##/, ''); 
+    const cleanedContent = conversationResponse.content.replace(/^AI##/, '');
     console.log('\n', cleanedContent);
-})();
+})();*/

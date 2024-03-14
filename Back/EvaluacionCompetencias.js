@@ -6,14 +6,13 @@ const URL = "https://ia-kong-dev.codingbuddy-4282826dce7d155229a320302e775459-00
 const URLDocumental = "https://ia-kong-dev.codingbuddy-4282826dce7d155229a320302e775459-0000.eu-de.containers.appdomain.cloud/aigen/llm/openai/rag/clients";
 
 // Exportar los métodos
-module.exports = { llamadaSubirDocumento, llamadaPreguntaDocumento };
 
-async function llamadaSubirDocumento() {
+async function llamadaSubirDocumento(file) {
     // Crear instancia de FormData
     const formData = new FormData();
 
     // Agregar el archivo y el índice al FormData
-    formData.append('file', fs.createReadStream('./NotasAlumnos.pdf'));
+    formData.append('file', fs.createReadStream(file));
     formData.append('index', 'prueba2dedatosdealumnos');
     formData.append('name', 'pruebadatosdealumnos');
     formData.append('description', 'pruebadatosdealumnos');
@@ -28,58 +27,43 @@ async function llamadaSubirDocumento() {
         // Hacer la llamada usando axios
         const response = await axios.post(URL, formData, {
             headers: {
-                ...formData.getHeaders(), // Obtener los encabezados de FormData
-                'X-API-KEY': 'psvardT7iO02ZXzlqNeyWOK2xfwcOxlh' // Agregar el encabezado con la API key
+                ...formData.getHeaders(),
+                'X-API-KEY': 'psvardT7iO02ZXzlqNeyWOK2xfwcOxlh'
             },
         });
 
         // Imprimir la respuesta
         llamadaPreguntaDocumento();
     } catch (error) {
-        // Manejar errores
         console.error('Error al hacer la llamada:', error);
     }
 }
 
 // Función para llamar a la API
 async function llamadaPreguntaDocumento() {
-    const data = {
-        model: "gpt-35-turbo-0301",
-        uuid: "agdgs-24awr-22dfasswf",
-        message: {
-            role: "user",
-            content: "Eres un asistente escolar que procesa datos académicos de alumnos. A partir de los siguientes datos de alumnos, genera una descripción detallada para cada uno de ellos explicando en qué aspectos van bien y en cuáles tienen que trabajar más"
-        },
-        index: "5a2c55a9-0bf9-48f3-85d3-877a99d4895e",
-        vectorization_model: "text-embedding-ada-002-1",
-        temperature: 0,
-        origin: "escueladata",
-        user: ""
-    };
 
     try {
-        const response = await fetch(URLDocumental, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-API-KEY': 'psvardT7iO02ZXzlqNeyWOK2xfwcOxlh'
+        const response = await axios.post(URLDocumental, {
+            model: "gpt-35-turbo-0301",
+            uuid: "agdgs-24awr-22dfasswf",
+            message: {
+                role: "user",
+                content: "Eres un asistente escolar que procesa datos académicos de alumnos. A partir de los siguientes datos de alumnos,genera una descripción detallada para cada uno de ellos explicando en qué aspectos van bien y en cuáles tienen que trabajar más.Tu respuesta tiene que ser detallada y ordenada.Un ejemplo de tu respuesta sería :  El alumno Juan Pérez tiene un buen rendimiento en matemáticas, pero tiene que mejorar en lengua.  El alumno María García tiene un buen rendimiento en lengua, pero tiene que mejorar en matemáticas.  El alumno Pedro López tiene un buen rendimiento en matemáticas, pero tiene que mejorar en lengua.  El alumno Ana Martínez tiene un buen rendimiento en lengua, pero tiene que mejorar en matemáticas.  El alumno Luis Sánchez tiene un buen rendimiento en matemáticas, pero tiene que mejorar en lengua.  El alumno Carmen Rodríguez tiene un buen rendimiento en lengua, pero tiene que mejorar en matemáticas."
             },
-            body: JSON.stringify(data)
-        });
+            index: "5a2c55a9-0bf9-48f3-85d3-877a99d4895e",
+            vectorization_model: "text-embedding-ada-002-1",
+            temperature: 0,
+            origin: "escueladata",
+            user: ""
+        }, {method: 'POST', headers: {'Content-Type': 'application/json', 'X-API-KEY': 'psvardT7iO02ZXzlqNeyWOK2xfwcOxlh'}});
 
-        if (!response.ok) {
-            throw new Error('La llamada a la API no fue exitosa');
-        }
+        let respuesta = response.data.content.substring(4);
+        return (respuesta)
 
-        const responseData = await response.json();
-        const respuesta = responseData.content.substring(4);
-
-        return respuesta;
 
     } catch (error) {
         throw error;
     }
 }
 
-// Llamar a la función para enviar la llamada
-llamadaSubirDocumento();
+module.exports = { llamadaSubirDocumento, llamadaPreguntaDocumento };
