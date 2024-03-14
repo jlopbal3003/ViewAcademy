@@ -48,8 +48,8 @@ const headers = {
 			user: ""
 		}, { headers });
 		lastUUID = uuid;
-		res.send(apiResponse.data.content);
-		return apiResponse.data.content;
+		var formattedResponse = apiResponse.data.content.replace(/^AI##/, '');
+		res.json({respuesta: formattedResponse});
 	}
 	catch (error) {
 		console.error('Error al realizar la solicitud a la API:', error.message);
@@ -67,7 +67,7 @@ const headers = {
 			uuid: lastUUID,
 			message: {
 			  role: "user",
-			  content: content,//prompt usuario
+			  content: content,
 			},
 			temperature: 0.05,
 			origin: "escueladata",
@@ -77,7 +77,7 @@ const headers = {
 			user: ""
 		}, {method: 'POST', headers });
 
-		res.send(apiResponse.data.content);
+		return (apiResponse.data.content.replace(/^AI##/, ''));
 	}
 	catch (error) {
 		console.error('Error al realizar la solicitud a la API:', error.message);

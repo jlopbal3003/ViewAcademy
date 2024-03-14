@@ -44,6 +44,32 @@ router.get('/resumen', async (req, res) => {
     res.json({ resumen: cleanedContent });
 });
 
+/**SELECCIONAR ALUMNO**/
+
+router.post('/seleccionalumno', async (req, res) => {
+    try {
+        console.log("Subiendo documento...");
+        const respuesta = await llamadaSubirDocumento(req.body.archivo);
+        res.json({ subirDocumento: respuesta });
+        console.log("Documento subido.");
+    } catch (error) {
+        console.error("Error al hacer la llamada:", error);
+        res.status(500).json({ error: "Hubo un error al subir el documento." });
+    }
+});
+
+router.get('/seleccionalumno', async (req, res) => {
+
+    try {
+        console.log("Subiendo documento...");
+        const respuesta = await llamadaSeleccionarAlumnoAleatorio();
+        res.json({ evaluacion: respuesta });
+    } catch (error) {
+        console.error("Error al hacer la llamada:", error);
+        res.status(500).json({ error: "Hubo un error al obtener la pregunta del documento." });
+    }
+});
+
 /*****************ASISTENTE VIRTUAL***************************/
 
 router.get('/av', async (req, res) => {
@@ -71,27 +97,33 @@ router.get('/mates', async (req, res) => {
 });
 
 router.post('/avinput',  (req, res) => {
-    llamadaAsistenteApiPost(res, req.body.content, '/av');
+    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/av');
+    res.json({ respuesta: respuesta });
 });
 
 router.post('/inginput',  (req, res) => {
-    llamadaAsistenteApiPost(res, req.body.content, '/ingles');
+    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/ingles');
+    res.json({ respuesta: respuesta });
 });
 
 router.post('/histinput',  (req, res) => {
-    llamadaAsistenteApiPost(res, req.body.content, '/historia');
+    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/historia');
+    res.json({ respuesta: respuesta });
 });
 
 router.post('/leninput',  (req, res) => {
-    llamadaAsistenteApiPost(res, req.body.content, '/lengua');
+    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/lengua');
+    res.json({ respuesta: respuesta });
 });
 
 router.post('/profinput',  (req, res) => {
-    llamadaAsistenteApiPost(res, req.body.content, '/profesor');
+    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/profesor');
+    res.json({ respuesta: respuesta });
 });
 
 router.post('/matesinput',  (req, res) => {
-    llamadaAsistenteApiPost(res, req.body.content, '/mates');
+    let respuesta = llamadaAsistenteApiPost(res, req.body.content, '/mates');
+    res.json({ respuesta: respuesta });
 });
 
 module.exports = router;
