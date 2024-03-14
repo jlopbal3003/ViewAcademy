@@ -12,7 +12,7 @@ export class LoginComponent {
   password: string = '';
   user: IUser = {email: '', password: ''};
 
-  constructor(private authService: AuthService){ }
+  constructor(protected authService: AuthService){ }
 
   onSubmit() {
     console.log('Usuario:', this.email);

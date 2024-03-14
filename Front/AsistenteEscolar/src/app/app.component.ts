@@ -9,7 +9,7 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class AppComponent {
 
-  constructor(public authService: AuthService, private router: Router){}
+  constructor(protected authService: AuthService, private router: Router){}
 
   title = 'AsistenteEscolar';
 

@@ -1,26 +1,26 @@
 <div class="container">
-    <div *ngIf="this.authService.rol==='alumno' || this.authService.rol==='profesor'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='alumno' || this.authService.rol==='profesor'" (click)="goToAsistenteVirtual()" class="div-pequeno">
         <p>Asistente Virtual</p>    
     </div>
-    <div *ngIf="this.authService.rol==='alumno'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='alumno'" (click)="goToGenerarResumen()" class="div-pequeno">
         <p>Generar Resumen</p>    
     </div>
-    <div *ngIf="this.authService.rol==='profesor'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='profesor'" (click)="goToEvaluacionCompetencias()" class="div-pequeno">
         <p>Evaluación de competencias</p>    
     </div>
-    <div *ngIf="this.authService.rol==='profesor'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='profesor'" (click)="goToSeleccionarAlumno()" class="div-pequeno">
         <p>Seleccionar alumno</p>    
     </div>
-    <div *ngIf="this.authService.rol==='profesor'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='profesor'" (click)="goToDetectorPlagios()" class="div-pequeno">
         <p>Detector de plagios</p>
     </div>
-    <div *ngIf="this.authService.rol==='admin'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='admin'" (click)="goToVisualizarAlumnos()" class="div-pequeno">
         <p>Visualizar alumnos</p>
     </div>
-    <div *ngIf="this.authService.rol==='admin'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='admin'" (click)="goToVisualizarProfesores()" class="div-pequeno">
         <p>Visualizar profesores</p>
     </div>
-    <div *ngIf="this.authService.rol==='admin'" class="div-pequeno">
+    <div *ngIf="this.authService.rol==='admin'" (click)="goToVerEstadisticas()" class="div-pequeno">
         <p>Ver estadísticas</p>
     </div>
   </div>

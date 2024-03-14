@@ -9,16 +9,16 @@ import { ApiService } from './api.service';
 export class AuthService {
 
   session: any = null;
-  rol: string = 'admin';
+  rol: string = 'sin_rol';
 
   constructor(private router: Router, private apiService: ApiService) { }
 
   login(user: IUser){
     this.apiService.loginUser(user).subscribe(
       response => {
-        console.log(response);
-        alert('Inicio de sesión correcto');
+        this.rol = response.rol_usuario;
         this.session = user.email;
+        alert('Inicio de sesión correcto');
         this.router.navigate(['/inicio']);
       },
       error => {
@@ -32,4 +32,9 @@ export class AuthService {
     alert('Se ha cerrado correctamente la sesión');
     this.router.navigate(['/login']);
   }
+
+  goToMainPage(){
+    this.router.navigate(['/inicio']);
+  }
+
 }
