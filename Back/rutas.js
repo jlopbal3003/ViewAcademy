@@ -11,8 +11,8 @@ router.get('/av', async (req, res) => {
 	await llamadaAsistenteApi(res, contentsByRoute['/av']);
 });
 
-router.get('/biologia', async (req, res) => {
-    await llamadaAsistenteApi(res, contentsByRoute['/biologia']);
+router.get('/ingles', async (req, res) => {
+    await llamadaAsistenteApi(res, contentsByRoute['/ingles']);
 });
 
 router.get('/historia', async (req, res) => {
@@ -35,8 +35,8 @@ router.post('/avinput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/av');
 });
 
-router.post('/bioinput',  (req, res) => {
-    llamadaAsistenteApiPost(res, req.body.content, '/biologia');
+router.post('/inginput',  (req, res) => {
+    llamadaAsistenteApiPost(res, req.body.content, '/ingles');
 });
 
 router.post('/histinput',  (req, res) => {
