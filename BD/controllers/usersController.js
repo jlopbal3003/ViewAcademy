@@ -27,7 +27,7 @@ const login = (req, res) => {
     const { email, password } = req.body;
     const user = usersData.find(user => user.email === email);
     if (user && bcrypt.compareSync(password, user.password)) {
-        res.json({ message: 'Inicio de sesión con éxito' });
+        res.json({ message: 'Inicio de sesión con éxito', rol_usuario: user.rol });
     } else {
         res.status(401).json({ message: 'Credenciales no válidas' });
     }

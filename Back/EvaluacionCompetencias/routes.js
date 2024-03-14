@@ -2,7 +2,7 @@
 const express = require('express');
 
 // Importar los métodos del otro archivo
-const { llamadaSubirDocumento, llamadaPreguntaDocumento } = require('./index2.js');
+const { llamadaSubirDocumento, llamadaPreguntaDocumento } = require('./app.js');
 
 // Crear una instancia de la aplicación Express
 const app = express();
