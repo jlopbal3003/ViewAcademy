@@ -44,7 +44,7 @@ router.get('/resumen', async (req, res) => {
     res.json({ resumen: cleanedContent });
 });
 
-/**SELECCIONAR ALUMNO**/
+/*****************SELECCIONAR ALUMNO******************/
 
 router.post('/seleccionalumno', async (req, res) => {
     try {
@@ -68,6 +68,19 @@ router.get('/seleccionalumno', async (req, res) => {
         console.error("Error al hacer la llamada:", error);
         res.status(500).json({ error: "Hubo un error al obtener la pregunta del documento." });
     }
+});
+
+/**********************CHATPDF***************************** */
+
+router.post('/chatpdf', async (req, res) => {
+    let respuesta = await uploadFile(req.body.archivo);
+    res.json({ subirDocumento: respuesta });
+});
+
+router.get('/chatpdf', async (req, res) => {
+    const conversationResponse = await sendConversation(req.body.content);
+    const cleanedContent = conversationResponse.content.replace(/^AI##/, '');
+    res.json({ respuesta: cleanedContent });
 });
 
 /*****************ASISTENTE VIRTUAL***************************/
