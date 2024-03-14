@@ -15,4 +15,10 @@ export class ApiService {
   loginUser(user: IUser): Observable<any> {
     return this.http.post<any>(this.url+'/users/login', user);
   }
+
+  uploadSummary(formData: FormData): Observable<any> {
+    const uploadUrl = `${this.url}/upload-pdf`;
+
+    return this.http.post(uploadUrl, formData);
+  }
 }
