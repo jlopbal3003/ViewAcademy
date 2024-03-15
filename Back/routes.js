@@ -3,6 +3,18 @@ const { uploadFile ,sendConversation} = require('./Resumen.js');
 const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./calls');
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
+// Configuración de multer para la carga de archivos
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'files'); // Carpeta donde se guardarán los archivos
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Nombre de archivo único
+    }
+  });
+  const upload = multer({ storage: storage });
 
 router.get('/', (req, res) => {
 	  res.send('Hello World!');
@@ -33,8 +45,9 @@ router.get('/evaluacion', async (req, res) => {
 
 /*******************************resumen*****************/
 
-router.post('/upresumen', async (req, res) => {
-    const respuesta  = await uploadFile(req.body.archivo);
+router.post('/upresumen', upload.single('archivo'), async (req, res) => {
+    const archivoPath = req.file.path;
+    const respuesta  = await uploadFile(archivoPath);
     res.json({ subirDocumento: respuesta });
 });
 
@@ -46,10 +59,10 @@ router.get('/resumen', async (req, res) => {
 
 /*****************SELECCIONAR ALUMNO******************/
 
-router.post('/seleccionalumno', async (req, res) => {
+router.post('/seleccionalumno',upload.single('archivo'), async (req, res) => {
     try {
-        console.log("Subiendo documento...");
-        const respuesta = await llamadaSubirDocumento(req.body.archivo);
+        const archivoPath = req.file.path;
+        const respuesta = await llamadaSubirDocumento(archivoPath);
         res.json({ subirDocumento: respuesta });
         console.log("Documento subido.");
     } catch (error) {
@@ -72,8 +85,9 @@ router.get('/seleccionalumno', async (req, res) => {
 
 /**********************CHATPDF***************************** */
 
-router.post('/chatpdf', async (req, res) => {
-    let respuesta = await uploadFile(req.body.archivo);
+router.post('/chatpdf',upload.single('archivo'), async (req, res) => {
+    const archivoPath = req.file.path;
+    let respuesta = await uploadFile(archivoPath);
     res.json({ subirDocumento: respuesta });
 });
 

@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-var indice = uuidv4(); 
+var indice = uuidv4();
 
 async function uploadFile(archivo) {
     const formData = new FormData();
