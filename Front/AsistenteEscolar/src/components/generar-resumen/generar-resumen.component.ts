@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-generar-resumen',
@@ -9,9 +10,16 @@ import { ApiService } from '../../services/api.service';
 })
 export class GenerarResumenComponent {
 
-  pdfFile: File | undefined;
+  public pdfFile: FormGroup | undefined;
+  public hasPdf: boolean = false;
 
-  constructor(protected authService: AuthService, private apiService: ApiService){ }
+  constructor(protected authService: AuthService, private apiService: ApiService, private readonly formBuilder: FormBuilder){ }
+
+  ngOnInit() {
+    this.pdfFile = this.formBuilder.group({
+      profile: ['']
+    });
+}
 
   onSubmit() {
     if (!this.pdfFile) {
@@ -20,7 +28,7 @@ export class GenerarResumenComponent {
     }
 
     const formData = new FormData();
-    formData.append('pdfFile', this.pdfFile);
+    formData.append('archivo', this.pdfFile?.get('profile')?.value);
 
     this.apiService.uploadPdf(formData).subscribe(
       (response: any) => {
@@ -35,8 +43,11 @@ export class GenerarResumenComponent {
   onFileSelected(event: any) {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
-      this.pdfFile = fileList[0];
+      this.pdfFile?.get('profile')?.setValue(fileList[0]);
+      console.log(this.pdfFile?.get('profile')?.value);
+      this.hasPdf = true;
     }
+    event.preventDefault();
   }
 
 }

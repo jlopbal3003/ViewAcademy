@@ -10,7 +10,7 @@ style="background-image: url(../../assets/images/pattern-reduced.jpg); backgroun
 
             <div class="card-body p-5">
               <h1 class="fs-4 card-title fw-bold mb-4">Herramienta para Resumir</h1>
-              <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate="" autocomplete="off">
+              <form class="needs-validation" novalidate="" autocomplete="off">
                 <div class="mb-3">
                   <label for="pdfFile" class="mb-2 text-muted">Seleccionar archivo PDF:</label>
                   <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" (change)="onFileSelected($event)" class="form-control rounded-pill" required autofocus>
@@ -20,7 +20,7 @@ style="background-image: url(../../assets/images/pattern-reduced.jpg); backgroun
                 </div>
 
                 <div class="d-flex align-items-center">
-                  <button type="submit" class="btn btn-primary ms-auto rounded-pill" [disabled]="!pdfFile">Subir PDF</button>
+                  <button type="button" (click)="onSubmit()" class="btn btn-primary ms-auto rounded-pill" [disabled]="!hasPdf">Subir PDF</button>
                 </div>
               </form>
             </div>

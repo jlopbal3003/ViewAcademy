@@ -22,14 +22,14 @@ export class SeleccionarAlumnoComponent {
     const formData = new FormData();
     formData.append('pdfFile', this.pdfFile);
 
-    this.apiService.uploadPdf(formData).subscribe(
-      (response: any) => {
-        console.log('Archivo PDF subido exitosamente:', response);
-      },
-      (error: any) => {
-        console.error('Error al subir archivo PDF:', error);
-      }
-    );
+    // this.apiService.uploadPdf(this.pdfFile).subscribe(
+    //   (response: any) => {
+    //     console.log('Archivo PDF subido exitosamente:', response);
+    //   },
+    //   (error: any) => {
+    //     console.error('Error al subir archivo PDF:', error);
+    //   }
+    // );
   }
 
   onFileSelected(event: any) {
