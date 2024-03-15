@@ -8,6 +8,7 @@ import { MainPageComponent } from '../components/main-page/main-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
+import { AsistenteVirtualComponent } from 'src/components/asistente-virtual/asistente-virtual.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ServiceCardComponent } from '../components/service-card/service-card.co
     AppComponent,
     LoginComponent,
     MainPageComponent,
-    ServiceCardComponent
+    ServiceCardComponent,
+    AsistenteVirtualComponent
   ],
   imports: [
     BrowserModule,

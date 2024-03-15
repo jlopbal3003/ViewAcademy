@@ -54,7 +54,7 @@ pre {
     -moz-box-shadow: none;
     box-shadow: none;
     background-color: transparent;
-    resize: none;
+    resize: none !important;
 }
 
 .message,
