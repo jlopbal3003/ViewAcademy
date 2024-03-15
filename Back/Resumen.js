@@ -4,9 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-var indice = uuidv4();
+var lastIndice ;
 
 async function uploadFile(archivo) {
+    var indice = uuidv4();
     const formData = new FormData();
 
     if (!fs.existsSync(archivo)) {
@@ -40,6 +41,8 @@ async function uploadFile(archivo) {
         console.error('Error al subir archivo:', error.response.status);
         return (error);
     }
+
+    lastIndice = indice;
 }
 
 async function sendConversation() {
@@ -50,7 +53,7 @@ async function sendConversation() {
             "role": "user",
             "content": "Te proporcionaré un trabajo de investigación sobre un tema específico, y crearás un resumen de los principales puntos y hallazgos del documento. Tu resumen debe ser conciso y debe comunicar objetiva y correctamente los puntos clave del documento. No debes incluir ninguna opinión o interpretación personal en tu resumen, sino centrarte en presentar objetivamente la información del documento. Tu resumen debe estar escrito con tus propias palabras y no debe incluir citas directas del documento. Por favor, asegúrate de que tu resumen sea claro, conciso y refleje correctamente el contenido del documento original."
         },
-        "index": indice,
+        "index": lastIndice,
         "vectorization_model": "text-embedding-ada-002-1",
         "temperature": 0.05,
         "origin": "escueladata",
