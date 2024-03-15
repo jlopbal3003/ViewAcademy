@@ -9,7 +9,7 @@ style="background-image: url(../../assets/images/pattern-reduced.jpg); backgroun
 
 
             <div class="card-body p-5">
-              <h1 class="fs-4 card-title fw-bold mb-4">Detector de plagio</h1>
+              <h1 class="fs-4 card-title fw-bold mb-4">ChatPDF</h1>
               <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate="" autocomplete="off">
                 <div class="mb-3">
                   <label for="pdfFile" class="mb-2 text-muted">Seleccionar archivo PDF:</label>
@@ -18,28 +18,23 @@ style="background-image: url(../../assets/images/pattern-reduced.jpg); backgroun
                     Invalid Document Type
                   </div>
                 </div>
+
                 <div class="d-flex align-items-center">
                   <button type="submit" class="btn btn-primary ms-auto rounded-pill" [disabled]="!pdfFile">Subir PDF</button>
                 </div>
-
-                <div class="mb-3">
-                    <label for="pdfFile" class="mb-2 text-muted">Seleccionar archivo PDF:</label>
-                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" (change)="onFileSelected($event)" class="form-control rounded-pill" required autofocus>
-                    <div class="invalid-feedback">
-                      Invalid Document Type
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <button type="submit" class="btn btn-primary ms-auto rounded-pill" [disabled]="!pdfFile">Subir PDF</button>
-                  </div>
-
               </form>
-            </div>
+              <div class="mb-3 mt-5">
+                <label class="mb-2 text-muted">Pregunta:</label>
+                <input type="text" class="form-control rounded-pill">
+              </div>
+              <div class="d-flex align-items-center">
+                <button class="btn btn-primary ms-auto rounded-pill">
+                  Enviar
+                </button>
+              </div>
 
-
-            <div class="card-body p-5">
               <h1 class="fs-4 card-title fw-bold mb-4">Respuesta:</h1>
-              <p>Los dos archivos tienen un plagio de 99%</p>
+              <p>Resumen</p>
             </div>
             
           </div>

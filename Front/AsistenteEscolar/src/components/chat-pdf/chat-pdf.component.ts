@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ApiService } from 'src/services/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-detector-plagios',
-  templateUrl: './detector-plagios.component.html',
-  styleUrls: ['./detector-plagios.component.css']
+  selector: 'app-chat-pdf',
+  templateUrl: './chat-pdf.component.html',
+  styleUrls: ['./chat-pdf.component.css']
 })
-export class DetectorPlagiosComponent {
+export class ChatPdfComponent {
 
   pdfFile: File | undefined;
 

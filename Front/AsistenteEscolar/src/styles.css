@@ -1,1 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-image: url("/assets/images/pattern-reduced.jpg"); 
+    background-repeat: repeat; 
+    background-size: 800px;
+}
