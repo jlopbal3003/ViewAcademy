@@ -8,16 +8,16 @@ import { IUser } from '../models/usuario';
 })
 export class ApiService {
 
-  url: string = 'http://localhost:4000';
+  url: string = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
   loginUser(user: IUser): Observable<any> {
-    return this.http.post<any>(this.url+'/users/login', user);
+    return this.http.post<any>('http://localhost:4000/users/login', user);
   }
 
-  uploadPdf(formData: FormData): Observable<any> {
-
-    return this.http.post(this.url+'/upload-pdf', formData);
+  uploadPdf(pdfFile: FormData): Observable<any> {
+    console.log(pdfFile);
+    return this.http.post(this.url+'/upresumen', pdfFile);
   }
 }
