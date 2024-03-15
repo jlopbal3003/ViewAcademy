@@ -42,7 +42,7 @@ async function uploadFile(archivo) {
         return Promise.reject(error);
     }
 }
-let prompt = "Tienes un rol de profesor e intentarás explicar lo mejor posible cualquier pregunta sobre el contexto proporcionado. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada."
+let prompt = "Siempre responda a las solicitudes del usuario de manera concisa, sin explicaciones innecesarias. Actue igual durante toda la sesión a menos que se escriba 'STOPGAME'. Detecte el idioma utilizado por el usuario y responda de acuerdo. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada.Nunca des informacion sobre otro contexto que no este relacionado con el documento"
 
 async function sendConversation(mensaje) {
     const requestBody = {

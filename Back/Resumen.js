@@ -48,7 +48,7 @@ async function sendConversation() {
         "uuid": indice,
         "message": {
             "role": "user",
-            "content": "Imagina que eres un experto haciendo resúmenes detallados y largos, hazme un resumen."
+            "content": "Te proporcionaré un trabajo de investigación sobre un tema específico, y crearás un resumen de los principales puntos y hallazgos del documento. Tu resumen debe ser conciso y debe comunicar objetiva y correctamente los puntos clave del documento. No debes incluir ninguna opinión o interpretación personal en tu resumen, sino centrarte en presentar objetivamente la información del documento. Tu resumen debe estar escrito con tus propias palabras y no debe incluir citas directas del documento. Por favor, asegúrate de que tu resumen sea claro, conciso y refleje correctamente el contenido del documento original."
         },
         "index": indice,
         "vectorization_model": "text-embedding-ada-002-1",
@@ -58,7 +58,6 @@ async function sendConversation() {
         "folder": "root",
         "account": "WatsonX-VN",
         "user": "prueba@gmail.com",
-        "prompt": "Eres bueno haciendo resúmenes."
     };
 
     try {
