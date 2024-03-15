@@ -7,6 +7,7 @@ import { GenerarResumenComponent } from '../components/generar-resumen/generar-r
 import { EvaluacionCompetenciasComponent } from '../components/evaluacion-competencias/evaluacion-competencias.component';
 import { SeleccionarAlumnoComponent } from '../components/seleccionar-alumno/seleccionar-alumno.component';
 import { DetectorPlagiosComponent } from '../components/detector-plagios/detector-plagios.component';
+import { ChatPdfComponent } from 'src/components/chat-pdf/chat-pdf.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'generar-resumen', component: GenerarResumenComponent},
   {path: 'evaluacion-competencias', component: EvaluacionCompetenciasComponent},
   {path: 'seleccionar-alumno', component: SeleccionarAlumnoComponent},
-  {path: 'detector-plagios', component: DetectorPlagiosComponent}
+  {path: 'detector-plagios', component: DetectorPlagiosComponent},
+  {path: 'chat-pdf', component: ChatPdfComponent}
 ];
 
 @NgModule({

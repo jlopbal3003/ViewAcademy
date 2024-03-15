@@ -8,9 +8,11 @@ import { Component, Input } from '@angular/core';
 export class ServiceCardComponent {
   @Input() title: string;
   @Input() description: string;
+  @Input() imageUrl: string = '';
 
   constructor() {
     this.title = '';
     this.description = '';
+    this.imageUrl = '';
   }
 }

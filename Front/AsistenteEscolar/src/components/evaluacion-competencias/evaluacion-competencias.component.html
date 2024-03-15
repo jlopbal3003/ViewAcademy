@@ -1,2 +1,55 @@
-<p>evaluacion-competencias works!</p>
-<button (click)="this.authService.goToMainPage()">Volver al menú principal</button>
+<section class="pt-5 pb-5 mt-0 align-items-center d-flex min-vh-100"
+style="background-image: url(../../assets/images/pattern-reduced.jpg); background-repeat: repeat; background-size: 800px;">
+
+ <div class="container-fluid">
+    <div class="row justify-content-center align-items-center d-flex-row h-100">
+      <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9 h-50 ">
+        <div style="border-radius: 20px;" class="card border-0 shadow-sm">
+          <div class="card shadow-lg">
+
+
+            <div class="card-body p-5">
+              <h1 class="fs-4 card-title fw-bold mb-4">Evaluar competencias</h1>
+              <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate="" autocomplete="off">
+                <div class="mb-3">
+                  <label for="pdfFile" class="mb-2 text-muted">Seleccionar archivo PDF:</label>
+                  <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" (change)="onFileSelected($event)" class="form-control rounded-pill" required autofocus>
+                  <div class="invalid-feedback">
+                    Invalid Document Type
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <button type="submit" class="btn btn-primary ms-auto rounded-pill" [disabled]="!pdfFile">Subir PDF</button>
+                </div>
+              </form>
+            </div>
+
+
+            <div class="card-body p-5">
+              <h1 class="fs-4 card-title fw-bold mb-4">Respuesta:</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip exea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.</p>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button class="btn btn-primary rounded-pill text-center" (click)="this.authService.goToMainPage()">Volver al menú principal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</section>

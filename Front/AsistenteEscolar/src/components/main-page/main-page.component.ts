@@ -19,6 +19,10 @@ export class MainPageComponent {
     this.router.navigate(['/generar-resumen']);
   }
 
+  goChatPDF(){
+    this.router.navigate(['/chat-pdf']);
+  }
+
   goToSeleccionarAlumno(){
     this.router.navigate(['/seleccionar-alumno']);
   }
