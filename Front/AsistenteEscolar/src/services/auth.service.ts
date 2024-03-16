@@ -1,40 +1,42 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from '../models/usuario';
 import { ApiService } from './api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   session: any = null;
   rol: string = 'sin_rol';
+  errorMessageEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: ApiService) {}
 
-  login(user: IUser){
+  login(user: IUser, errorMessage: string, isLoading: boolean) {
+    isLoading = true;
     this.apiService.loginUser(user).subscribe(
-      response => {
+      (response) => {
         this.rol = response.rol_usuario;
         this.session = user.email;
-        alert('Inicio de sesión correcto');
         this.router.navigate(['/inicio']);
+        isLoading = false;
       },
-      error => {
-        alert('Error al iniciar sesión');
+      (error) => {
+        this.errorMessageEmitter.emit('Error al iniciar sesión');
         console.error(error);
-      });
+        isLoading = false;
+      }
+    );
   }
 
-  logout(){
+  logout() {
     this.session = null;
     alert('Se ha cerrado correctamente la sesión');
     this.router.navigate(['/login']);
   }
 
-  goToMainPage(){
+  goToMainPage() {
     this.router.navigate(['/inicio']);
   }
-
 }
