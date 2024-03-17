@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import * as html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-generar-resumen',
@@ -35,7 +36,7 @@ export class GenerarResumenComponent {
 
     this.http.post<any>("http://localhost:3000/resumen", formData).subscribe(
       (response: any) => {
-        this.respuesta = "<h1 class='fs-4 card-title fw-bold mb-4'>Respuesta:</h1>" + response.respuesta;
+        this.respuesta = response.respuesta;
         this.pdfUploaded = true;
       },
       (error) => {
@@ -52,5 +53,21 @@ export class GenerarResumenComponent {
       this.hasPdf = true;
     }
     event.preventDefault();
+  }
+
+  // Función para descargar el PDF
+  downloadPdf() {
+    const options = {
+      margin: 1,
+      filename: 'GenerarResumenViewAcademy.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf()
+      .from(this.respuesta)
+      .set(options)
+      .save();
   }
 }

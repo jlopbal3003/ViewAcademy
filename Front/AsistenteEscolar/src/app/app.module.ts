@@ -12,6 +12,9 @@ import { AsistenteVirtualComponent } from 'src/components/asistente-virtual/asis
 import { ChatPdfComponent } from 'src/components/chat-pdf/chat-pdf.component';
 import { ListadoAlumnosComponent } from '../components/listado-alumnos/listado-alumnos.component';
 import { ListadoProfesoresComponent } from '../components/listado-profesores/listado-profesores.component';
+import { CommonModule } from '@angular/common';
+import { GenerarResumenComponent } from 'src/components/generar-resumen/generar-resumen.component';
+import { EvaluacionCompetenciasComponent } from 'src/components/evaluacion-competencias/evaluacion-competencias.component';
 
 
 @NgModule({
@@ -23,14 +26,17 @@ import { ListadoProfesoresComponent } from '../components/listado-profesores/lis
     AsistenteVirtualComponent,
     ChatPdfComponent,
     ListadoAlumnosComponent,
-    ListadoProfesoresComponent
+    ListadoProfesoresComponent,
+    GenerarResumenComponent,
+    EvaluacionCompetenciasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
