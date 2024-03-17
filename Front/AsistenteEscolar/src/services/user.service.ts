@@ -10,9 +10,11 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  /************ POR DEFECTO ************/
-
   getAlumnos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/alumnos`);
+  }
+
+  getProfesores(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/profesores`);
   }
 }

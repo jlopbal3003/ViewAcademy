@@ -40,7 +40,7 @@ export class MainPageComponent {
   }
 
   goToVisualizarProfesores(){
-    alert('Componente VisualizarProfesores en desarrollo');
+    this.router.navigate(['/listado-profesores']);
   }
 
   goToVerEstadisticas(){
