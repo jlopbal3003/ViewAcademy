@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-generar-resumen',
@@ -9,19 +10,21 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./generar-resumen.component.css']
 })
 export class GenerarResumenComponent {
-
   public pdfFile: FormGroup | undefined;
   public hasPdf: boolean = false;
+  public mensaje: any;
+  public respuesta: any;
+  public pdfUploaded: boolean = false;
 
-  constructor(protected authService: AuthService, private apiService: ApiService, private readonly formBuilder: FormBuilder){ }
+  constructor(protected authService: AuthService, private apiService: ApiService, private readonly formBuilder: FormBuilder, private http: HttpClient){ }
 
   ngOnInit() {
     this.pdfFile = this.formBuilder.group({
       profile: ['']
     });
-}
+  }
 
-  onSubmit() {
+  onSubmit(){
     if (!this.pdfFile) {
       console.error('Debe seleccionar un archivo PDF.');
       return;
@@ -30,12 +33,13 @@ export class GenerarResumenComponent {
     const formData = new FormData();
     formData.append('archivo', this.pdfFile?.get('profile')?.value);
 
-    this.apiService.uploadPdf(formData).subscribe(
+    this.http.post<any>("http://localhost:3000/resumen", formData).subscribe(
       (response: any) => {
-        console.log('Archivo PDF subido exitosamente:', response);
+        this.respuesta = "<h1 class='fs-4 card-title fw-bold mb-4'>Respuesta:</h1>" + response.respuesta;
+        this.pdfUploaded = true;
       },
-      (error: any) => {
-        console.error('Error al subir archivo PDF:', error);
+      (error) => {
+        console.error('Error al enviar datos al servidor:', error);
       }
     );
   }
@@ -49,5 +53,4 @@ export class GenerarResumenComponent {
     }
     event.preventDefault();
   }
-
 }

@@ -8,7 +8,7 @@
 
             <div class="card-body p-5">
               <h1 class="fs-4 card-title fw-bold mb-4">Evaluar competencias</h1>
-              <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate="" autocomplete="off">
+              <form class="needs-validation" novalidate="" autocomplete="off">
                 <div class="mb-3">
                   <label for="pdfFile" class="mb-2 text-muted">Seleccionar archivo PDF:</label>
                   <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" (change)="onFileSelected($event)" class="form-control rounded-pill" required autofocus>
@@ -16,21 +16,18 @@
                     Invalid Document Type
                   </div>
                 </div>
-
+              
                 <div class="d-flex align-items-center">
-                  <button type="submit" class="btn btn-primary ms-auto rounded-pill" [disabled]="!pdfFile">Subir PDF</button>
+                  <button type="button" (click)="onSubmit()" class="btn btn-primary ms-auto rounded-pill" [disabled]="!hasPdf">Subir PDF</button>
                 </div>
               </form>
+              
             </div>
 
 
             <div class="card-body p-5">
-              <h1 class="fs-4 card-title fw-bold mb-4">Respuesta:</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco laboris nisi ut aliquip exea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.</p>
+              <div [innerHTML]="respuesta"></div>
+
             </div>
             
           </div>

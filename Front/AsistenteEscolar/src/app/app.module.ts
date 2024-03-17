@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
 import { AsistenteVirtualComponent } from 'src/components/asistente-virtual/asistente-virtual.component';
+import { ChatPdfComponent } from 'src/components/chat-pdf/chat-pdf.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AsistenteVirtualComponent } from 'src/components/asistente-virtual/asis
     LoginComponent,
     MainPageComponent,
     ServiceCardComponent,
-    AsistenteVirtualComponent
+    AsistenteVirtualComponent,
+    ChatPdfComponent
   ],
   imports: [
     BrowserModule,
