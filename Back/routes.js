@@ -1,9 +1,15 @@
-const { llamadaSubirDocumento, llamadaPreguntaDocumento } = require('./EvaluacionCompetencias.js');
-const { uploadFile ,sendConversation} = require('./Resumen.js');
+const { uploadFile2 } = require('./EvaluacionCompetencias.js');
+const { uploadFile4} = require('./Resumen.js');
+const { uploadFile3 } = require('./SeleccionarAlumno.js');
+const { uploadFile1, sendConversation1} = require('./ChatPDF.js');
 const { llamadaAsistenteApi, contentsByRoute, llamadaAsistenteApiPost } = require('./calls');
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.json());
 
 // Configuración de multer para la carga de archivos
 const storage = multer.diskStorage({
@@ -20,82 +26,55 @@ router.get('/', (req, res) => {
 	  res.send('Hello World!');
 });
 /************************EVALUACION DE COMPETENCIAS***************************/
-router.post('/upevaluacion', async (req, res) => {
-    try {
-        console.log("Subiendo documento...");
-        const respuesta = await llamadaSubirDocumento(req.body.archivo);
-        res.json({ subirDocumento: respuesta });
-        console.log("Documento subido.");
-    } catch (error) {
-        console.error("Error al hacer la llamada:", error);
-        res.status(500).json({ error: "Hubo un error al subir el documento." });
-    }
-});
-
-router.get('/evaluacion', async (req, res) => {
-
-    try {
-        const respuesta = await llamadaPreguntaDocumento();
-        res.json({ evaluacion: respuesta });
-    } catch (error) {
-        console.error("Error al hacer la llamada:", error);
-        res.status(500).json({ error: "Hubo un error al obtener la pregunta del documento." });
-    }
+router.post('/competencias',upload.single('archivo'), async (req, res) => {
+    const archivoPath = req.file.path;
+    let data = await uploadFile2(archivoPath);
+    console.log(data);
+    res.json({ respuesta: data });
 });
 
 /*******************************resumen*****************/
 
-router.post('/upresumen', upload.single('archivo'), async (req, res) => {
+router.post('/resumen',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
-    const respuesta  = await uploadFile(archivoPath);
-    res.json({ subirDocumento: respuesta });
+    let data = await uploadFile4(archivoPath);
+    console.log(data);
+    res.json({ respuesta: data });
 });
 
-router.get('/resumen', async (req, res) => {
-    const apiresponse = await sendConversation();
-    const cleanedContent = apiresponse.content.replace(/^AI##/, '');
-    res.json({ resumen: cleanedContent });
-});
 
 /*****************SELECCIONAR ALUMNO******************/
 
 router.post('/seleccionalumno',upload.single('archivo'), async (req, res) => {
-    try {
-        const archivoPath = req.file.path;
-        const respuesta = await llamadaSubirDocumento(archivoPath);
-        res.json({ subirDocumento: respuesta });
-        console.log("Documento subido.");
-    } catch (error) {
-        console.error("Error al hacer la llamada:", error);
-        res.status(500).json({ error: "Hubo un error al subir el documento." });
-    }
-});
-
-router.get('/seleccionalumno', async (req, res) => {
-
-    try {
-        console.log("Subiendo documento...");
-        const respuesta = await llamadaSeleccionarAlumnoAleatorio();
-        res.json({ evaluacion: respuesta });
-    } catch (error) {
-        console.error("Error al hacer la llamada:", error);
-        res.status(500).json({ error: "Hubo un error al obtener la pregunta del documento." });
-    }
+    const archivoPath = req.file.path;
+    let data = await uploadFile3(archivoPath);
+    console.log(data);
+    res.json({ respuesta: data });
 });
 
 /**********************CHATPDF***************************** */
 
 router.post('/chatpdf',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
-    let respuesta = await uploadFile(archivoPath);
+    let respuesta = uploadFile1(archivoPath);
     res.json({ subirDocumento: respuesta });
 });
 
-router.get('/chatpdf', async (req, res) => {
-    const conversationResponse = await sendConversation(req.body.content);
-    const cleanedContent = conversationResponse.content.replace(/^AI##/, '');
+router.post('/chatpdfmensaje', async (req, res) => {
+    const mensaje = req.body.mensaje;
+    const conversationResponse = await sendConversation1(mensaje);
+    const cleanedContent = conversationResponse.replace(/^AI##/, '');
     res.json({ respuesta: cleanedContent });
 });
+
+/**********************PLAGIO***************************** */
+
+// router.post('/plagio',upload.single('archivo'), async (req, res) => {
+//     const archivoPath = req.file.path;
+//     let respuesta = plagio(archivoPath);
+//     res.json({ subirDocumento: respuesta });
+// });
+
 
 /*****************ASISTENTE VIRTUAL***************************/
 
