@@ -104,6 +104,8 @@ router.get('/mates', async (req, res) => {
 
 router.post('/avinput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/av');
+    console.log(req.body.email);
+    console.log(req.body.fecha);
 });
 
 router.post('/inginput',  (req, res) => {
