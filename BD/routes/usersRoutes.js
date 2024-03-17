@@ -8,6 +8,9 @@ router.get('/', usersController.getAllUsers);
 // Obtener todos los alumnos
 router.get('/alumnos', usersController.getAllAlumnos);
 
+// Obtener todos los profesores
+router.get('/profesores', usersController.getAllProfesores);
+
 // Obtener usuario por ID
 router.get('/:id', usersController.getUserById);
 

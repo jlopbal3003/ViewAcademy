@@ -9,6 +9,7 @@ import { SeleccionarAlumnoComponent } from '../components/seleccionar-alumno/sel
 import { DetectorPlagiosComponent } from '../components/detector-plagios/detector-plagios.component';
 import { ChatPdfComponent } from 'src/components/chat-pdf/chat-pdf.component';
 import { ListadoAlumnosComponent } from 'src/components/listado-alumnos/listado-alumnos.component';
+import { ListadoProfesoresComponent } from 'src/components/listado-profesores/listado-profesores.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'seleccionar-alumno', component: SeleccionarAlumnoComponent},
   {path: 'detector-plagios', component: DetectorPlagiosComponent},
   {path: 'chat-pdf', component: ChatPdfComponent},
-  {path: 'listado-alumnos', component: ListadoAlumnosComponent}
+  {path: 'listado-alumnos', component: ListadoAlumnosComponent},
+  {path: 'listado-profesores', component: ListadoProfesoresComponent},
 ];
 
 @NgModule({

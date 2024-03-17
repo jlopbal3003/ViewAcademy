@@ -15,8 +15,17 @@ const getAllAlumnos = (req, res) => {
     const hashedUsers = usersData
         .filter(user => user.rol === 'alumno')
         .map(user => ({
-            ...user,
-            password: bcrypt.hashSync(user.password, 10)
+            ...user
+        }));
+    res.json(hashedUsers);
+};
+
+// Mostrar todos los profesores
+const getAllProfesores = (req, res) => {
+    const hashedUsers = usersData
+        .filter(user => user.rol === 'profesor')
+        .map(user => ({
+            ...user
         }));
     res.json(hashedUsers);
 };
@@ -82,6 +91,7 @@ const createUser = (req, res) => {
 module.exports = {
     getAllUsers,
     getAllAlumnos,
+    getAllProfesores,
     getUserById,
     login,
     signup,

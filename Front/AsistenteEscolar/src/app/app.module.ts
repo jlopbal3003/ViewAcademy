@@ -11,6 +11,7 @@ import { ServiceCardComponent } from '../components/service-card/service-card.co
 import { AsistenteVirtualComponent } from 'src/components/asistente-virtual/asistente-virtual.component';
 import { ChatPdfComponent } from 'src/components/chat-pdf/chat-pdf.component';
 import { ListadoAlumnosComponent } from '../components/listado-alumnos/listado-alumnos.component';
+import { ListadoProfesoresComponent } from '../components/listado-profesores/listado-profesores.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ListadoAlumnosComponent } from '../components/listado-alumnos/listado-a
     ServiceCardComponent,
     AsistenteVirtualComponent,
     ChatPdfComponent,
-    ListadoAlumnosComponent
+    ListadoAlumnosComponent,
+    ListadoProfesoresComponent
   ],
   imports: [
     BrowserModule,
