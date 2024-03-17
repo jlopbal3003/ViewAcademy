@@ -24,10 +24,9 @@
               
             </div>
 
-
             <div class="card-body p-5">
-              <div [innerHTML]="respuesta"></div>
-
+              <p *ngIf="respuesta">{{ respuesta }}</p>
+              <button *ngIf="respuesta" class="btn btn-danger mt-3" (click)="downloadPdf()">Descargar PDF</button>
             </div>
             
           </div>
