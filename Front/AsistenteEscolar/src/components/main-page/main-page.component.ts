@@ -36,7 +36,7 @@ export class MainPageComponent {
   }
 
   goToVisualizarAlumnos(){
-    alert('Componente VisualizarAlumnos en desarrollo');
+    this.router.navigate(['/listado-alumnos']);
   }
 
   goToVisualizarProfesores(){

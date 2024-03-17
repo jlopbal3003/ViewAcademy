@@ -10,6 +10,17 @@ const getAllUsers = (req, res) => {
     res.json(hashedUsers);
 };
 
+// Mostrar todos los alumnos
+const getAllAlumnos = (req, res) => {
+    const hashedUsers = usersData
+        .filter(user => user.rol === 'alumno')
+        .map(user => ({
+            ...user,
+            password: bcrypt.hashSync(user.password, 10)
+        }));
+    res.json(hashedUsers);
+};
+
 // Mostrar usuario por ID
 const getUserById = (req, res) => {
     const { id } = req.params;
@@ -70,6 +81,7 @@ const createUser = (req, res) => {
 
 module.exports = {
     getAllUsers,
+    getAllAlumnos,
     getUserById,
     login,
     signup,
