@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
 import { AsistenteVirtualComponent } from 'src/components/asistente-virtual/asistente-virtual.component';
 import { ChatPdfComponent } from 'src/components/chat-pdf/chat-pdf.component';
+import { ListadoAlumnosComponent } from '../components/listado-alumnos/listado-alumnos.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ChatPdfComponent } from 'src/components/chat-pdf/chat-pdf.component';
     MainPageComponent,
     ServiceCardComponent,
     AsistenteVirtualComponent,
-    ChatPdfComponent
+    ChatPdfComponent,
+    ListadoAlumnosComponent
   ],
   imports: [
     BrowserModule,
