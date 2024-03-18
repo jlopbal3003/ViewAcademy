@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const bodyParser = require('body-parser');
+const guardarEstadistica = require('./Estadisticas.js');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,7 +18,7 @@ const storage = multer.diskStorage({
       cb(null, 'files'); // Carpeta donde se guardarán los archivos
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname); // Nombre de archivo único
+      cb(null, file.originalname);
     }
   });
   const upload = multer({ storage: storage });
@@ -29,7 +30,7 @@ router.get('/', (req, res) => {
 router.post('/competencias',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
     let data = await uploadFile2(archivoPath);
-    console.log(data);
+    guardarEstadistica(req, 4);
     res.json({ respuesta: data });
 });
 
@@ -38,7 +39,7 @@ router.post('/competencias',upload.single('archivo'), async (req, res) => {
 router.post('/resumen',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
     let data = await uploadFile4(archivoPath);
-    console.log(data);
+    guardarEstadistica(req, 2);
     res.json({ respuesta: data });
 });
 
@@ -48,7 +49,7 @@ router.post('/resumen',upload.single('archivo'), async (req, res) => {
 router.post('/seleccionalumno',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
     let data = await uploadFile3(archivoPath);
-    console.log(data);
+    guardarEstadistica(req, 3);
     res.json({ respuesta: data });
 });
 
@@ -64,6 +65,7 @@ router.post('/chatpdfmensaje', async (req, res) => {
     const mensaje = req.body.mensaje;
     const conversationResponse = await sendConversation1(mensaje);
     const cleanedContent = conversationResponse.replace(/^AI##/, '');
+    guardarEstadistica(req, 1);
     res.json({ respuesta: cleanedContent });
 });
 
@@ -104,26 +106,32 @@ router.get('/mates', async (req, res) => {
 
 router.post('/avinput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/av');
+    guardarEstadistica(req, 0);
 });
 
 router.post('/inginput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/ingles');
+    guardarEstadistica(req, 0);
 });
 
 router.post('/histinput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/historia');
+    guardarEstadistica(req, 0);
 });
 
 router.post('/leninput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/lengua');
+    guardarEstadistica(req, 0);
 });
 
 router.post('/profinput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/profesor');
+    guardarEstadistica(req, 0);
 });
 
 router.post('/matesinput',  (req, res) => {
     llamadaAsistenteApiPost(res, req.body.content, '/mates');
+    guardarEstadistica(req, 0);
 });
 
 module.exports = router;
