@@ -25,4 +25,4 @@ services:
     depends_on:
       - api_3000
       - api_4000
-    command: sh -c "cd AsistenteEscolar && npm install && npm start"
+    command: sh -c "npm i @angular/cli@16.1.0 && npm install && npm start"

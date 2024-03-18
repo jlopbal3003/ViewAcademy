@@ -1,14 +1,20 @@
+# Dockerfile para el servicio front (Frontend)
 FROM node:latest
 
+# Directorio de trabajo
 WORKDIR /app
 
-COPY . .
+# Copiar package.json y package-lock.json
+COPY ./AsistenteEscolar/package*.json ./
 
-# Cambiamos al directorio AsistenteEscolar
-WORKDIR /app/AsistenteEscolar
-
+# Instalar dependencias
 RUN npm install
 
+# Copiar el resto de los archivos
+COPY ./AsistenteEscolar .
+
+# Puerto expuesto
 EXPOSE 4200
 
-CMD ["ng", "serve"]
+# Comando por defecto
+CMD ["npm", "start"]
