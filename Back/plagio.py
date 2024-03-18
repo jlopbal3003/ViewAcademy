@@ -107,6 +107,15 @@ def calcular_porcentaje_igualdad(a, b):
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------
+#------------------------IMPORTANTE----------------------------------
+#La idea principal era hacerlo con la api openai ya que permite elegir el
+#overlay para el contexto y el numero de chunks por lo que se haría mucho mejor
+#pero es de pago, en cambio he utlizado la api de Cohere que es mucho más
+#limitada por lo que el plagio va a ser menos exacto.
+#------------------------IMPORTANTE----------------------------------
+#-------------------------------------------------------------------
+
 import os
 import shutil
 from typing import Dict
