@@ -15,6 +15,8 @@ import { ListadoProfesoresComponent } from '../components/listado-profesores/lis
 import { CommonModule } from '@angular/common';
 import { GenerarResumenComponent } from 'src/components/generar-resumen/generar-resumen.component';
 import { EvaluacionCompetenciasComponent } from 'src/components/evaluacion-competencias/evaluacion-competencias.component';
+import { DetectorPlagiosComponent } from 'src/components/detector-plagios/detector-plagios.component';
+import { SeleccionarAlumnoComponent } from 'src/components/seleccionar-alumno/seleccionar-alumno.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { EvaluacionCompetenciasComponent } from 'src/components/evaluacion-compe
     ListadoAlumnosComponent,
     ListadoProfesoresComponent,
     GenerarResumenComponent,
-    EvaluacionCompetenciasComponent
+    EvaluacionCompetenciasComponent,
+    DetectorPlagiosComponent,
+    SeleccionarAlumnoComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,9 @@ export class ChatPdfComponent {
   mensaje: any;
   respuesta: any;
 
+  isLoadingSubir: boolean = false;
+  isLoadingPreguntar: boolean = false;
+
   constructor(protected authService: AuthService, private apiService: ApiService, private readonly formBuilder: FormBuilder, private http: HttpClient) { }
   pdfUploaded: boolean = false;
 
@@ -50,8 +53,12 @@ export class ChatPdfComponent {
   // }
 
   onSubmit() {
+
+    this.isLoadingSubir = true;
+
     if (!this.pdfFile) {
       console.error('Debe seleccionar un archivo PDF.');
+    this.isLoadingSubir = false;
       return;
     }
 
@@ -62,9 +69,12 @@ export class ChatPdfComponent {
       (response) => {
         console.log('Esta bien: ', response);
         this.pdfUploaded = true;
+    this.isLoadingSubir = false;
+
       },
       (error) => {
         console.error('Error al enviar datos al servidor:', error);
+    this.isLoadingSubir = false;
       }
     );
   }
@@ -81,14 +91,17 @@ export class ChatPdfComponent {
 
   enviarMensaje() {
     if (this.mensaje.trim() !== '') {
+      this.isLoadingPreguntar = true;
       const body = { mensaje: this.mensaje, user: this.authService.session };
       this.http.post("http://localhost:3000/chatpdfmensaje", body).subscribe(
         (response: any) => {
           console.log('Respuesta del servidor:', response.respuesta);
           this.respuesta = "<h1 class='fs-4 card-title fw-bold mb-4'>Respuesta:</h1>" + response.respuesta;
+          this.isLoadingPreguntar = false;
         },
         (error) => {
           console.error('Error al enviar la solicitud:', error);
+          this.isLoadingPreguntar = false;
         }
       );
     }

@@ -17,6 +17,8 @@ export class GenerarResumenComponent {
   public respuesta: any;
   public pdfUploaded: boolean = false;
 
+  isLoading: boolean = false;
+
   constructor(protected authService: AuthService, private apiService: ApiService, private readonly formBuilder: FormBuilder, private http: HttpClient){ }
 
   ngOnInit() {
@@ -26,8 +28,13 @@ export class GenerarResumenComponent {
   }
 
   onSubmit(){
+
+  this.isLoading = true;
+
+
     if (!this.pdfFile) {
       console.error('Debe seleccionar un archivo PDF.');
+    this.isLoading = false;
       return;
     }
 
@@ -39,9 +46,11 @@ export class GenerarResumenComponent {
       (response: any) => {
         this.respuesta = response.respuesta;
         this.pdfUploaded = true;
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error al enviar datos al servidor:', error);
+  this.isLoading = false;
       }
     );
   }

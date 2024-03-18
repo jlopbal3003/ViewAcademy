@@ -16,6 +16,8 @@ export class SeleccionarAlumnoComponent {
   public respuesta: any;
   public pdfUploaded: boolean = false;
 
+  isLoading: boolean = false;
+
   constructor(protected authService: AuthService, private apiService: ApiService, private readonly formBuilder: FormBuilder, private http: HttpClient){ }
 
   ngOnInit() {
@@ -25,6 +27,9 @@ export class SeleccionarAlumnoComponent {
   }
 
   onSubmit(){
+
+    this.isLoading = true;
+
     if (!this.pdfFile) {
       console.error('Debe seleccionar un archivo PDF.');
       return;
@@ -38,9 +43,13 @@ export class SeleccionarAlumnoComponent {
       (response: any) => {
         this.respuesta = "<h1 class='fs-4 card-title fw-bold mb-4'>Respuesta:</h1>" + response.respuesta;
         this.pdfUploaded = true;
+    this.isLoading = false;
+
       },
       (error) => {
         console.error('Error al enviar datos al servidor:', error);
+    this.isLoading = false;
+
       }
     );
   }

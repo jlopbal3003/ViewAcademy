@@ -20,6 +20,8 @@ export class DetectorPlagiosComponent implements OnInit {
   public plagioResult: string | undefined;
   public filesSelected: boolean = false; // Nueva propiedad
 
+  isLoading: boolean = false;
+
   respuesta: any;
 
   constructor(
@@ -39,8 +41,12 @@ export class DetectorPlagiosComponent implements OnInit {
   }
 
   onSubmit() {
+
+    this.isLoading = true;
+
     if (!this.pdfFile1?.get('profile')?.value || !this.pdfFile2?.get('profile')?.value) {
       console.error('Debe seleccionar ambos archivos PDF.');
+    this.isLoading = false;
       return;
     }
   
@@ -55,12 +61,18 @@ export class DetectorPlagiosComponent implements OnInit {
         if (response && response.resultado_plagio) {
           this.pdfUploaded = true;
           this.plagioResult = "<h1 class='fs-4 card-title fw-bold mb-4'>Respuesta:</h1>" + response.resultado_plagio;
+    this.isLoading = false;
+
         } else {
           console.error('La respuesta del servidor no contiene el resultado esperado.');
+    this.isLoading = false;
+
         }
       },
       (error) => {
         console.error('Error al enviar archivos al servidor:', error);
+    this.isLoading = false;
+
       }
     );
   }

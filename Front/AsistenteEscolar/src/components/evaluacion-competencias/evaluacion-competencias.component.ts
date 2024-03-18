@@ -18,6 +18,8 @@ export class EvaluacionCompetenciasComponent {
   public respuesta: any;
   public pdfUploaded: boolean = false;
 
+  isLoading: boolean = false;
+
   constructor(protected authService: AuthService, private apiService: ApiService, private readonly formBuilder: FormBuilder, private http: HttpClient){ }
 
   ngOnInit() {
@@ -27,8 +29,12 @@ export class EvaluacionCompetenciasComponent {
   }
 
   onSubmit(){
+
+    this.isLoading = true;
+
     if (!this.pdfFile) {
       console.error('Debe seleccionar un archivo PDF.');
+    this.isLoading = false;
       return;
     }
 
@@ -40,9 +46,11 @@ export class EvaluacionCompetenciasComponent {
       (response: any) => {
         this.respuesta = response.respuesta;
         this.pdfUploaded = true;
+    this.isLoading = false;
       },
       (error) => {
         console.error('Error al enviar datos al servidor:', error);
+    this.isLoading = false;
       }
     );
   }
