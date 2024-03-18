@@ -5,9 +5,8 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 
-var indice = uuidv4(); // Genera un nombre único aleatorio
 
-async function uploadFile4(archivo) {
+async function uploadFile4(archivo, indice) {
 
     const rutaAbsoluta = path.resolve(archivo); // Obtiene la ruta absoluta del archivo
 
@@ -22,8 +21,8 @@ async function uploadFile4(archivo) {
         file: file,
         index: indice,
         name: indice,
-        description: 'indice',
-        owner: 'indice',
+        description: indice,
+        owner: indice,
         type: 'pdf',
         visibility: 'private',
         modelVectorization: 'text-embedding-ada-002-1',
@@ -38,7 +37,7 @@ async function uploadFile4(archivo) {
                 'X-API-KEY': 'psvardT7iO02ZXzlqNeyWOK2xfwcOxlh'
             }
         });
-        respuesta = await sendConversation2();
+        respuesta = await sendConversation2(indice);
         respuesta = respuesta.slice(4);
         return respuesta; 
     } catch (error) {
@@ -47,15 +46,15 @@ async function uploadFile4(archivo) {
     }
 }
 
-async function sendConversation2() {
+async function sendConversation2(indice) {
     var requestBody = {
         "model": "gpt-35-turbo-0301",
         "uuid": indice,
         "message": {
             "role": "user",
-            "content": "Te proporcionaré un trabajo de investigación sobre un tema específico, y crearás un resumen de los principales puntos y hallazgos del documento. Tu resumen debe ser conciso y debe comunicar objetiva y correctamente los puntos clave del documento. No debes incluir ninguna opinión o interpretación personal en tu resumen, sino centrarte en presentar objetivamente la información del documento. Tu resumen debe estar escrito con tus propias palabras y no debe incluir citas directas del documento. Por favor, asegúrate de que tu resumen sea claro, conciso y refleje correctamente el contenido del documento original."
+            "content": "Tienes un rol de resumir textos, hazme un resumen claro, conciso y que refleje correctamente el contenido del texto original. La respuesta solo tendrá el resumen."
         },
-        "index": "pruebadatosderelatos",
+        "index": indice,
         "vectorization_model": "text-embedding-ada-002-1",
         "temperature": 0.05,
         "origin": "escueladata",

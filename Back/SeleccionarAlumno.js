@@ -2,12 +2,8 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
 
-
-var indice = uuidv4(); // Genera un nombre único aleatorio
-
-async function uploadFile3(archivo) {
+async function uploadFile3(archivo, indice) {
 
     const rutaAbsoluta = path.resolve(archivo); // Obtiene la ruta absoluta del archivo
 
@@ -22,8 +18,8 @@ async function uploadFile3(archivo) {
         file: file,
         index: indice,
         name: indice,
-        description: 'indice',
-        owner: 'indice',
+        description: indice,
+        owner: indice,
         type: 'pdf',
         visibility: 'private',
         modelVectorization: 'text-embedding-ada-002-1',
@@ -38,7 +34,7 @@ async function uploadFile3(archivo) {
                 'X-API-KEY': 'psvardT7iO02ZXzlqNeyWOK2xfwcOxlh'
             }
         });
-        respuesta = await sendConversation2();
+        respuesta = await sendConversation2(indice);
         respuesta = respuesta.slice(4);
         return respuesta; 
     } catch (error) {
@@ -47,15 +43,15 @@ async function uploadFile3(archivo) {
     }
 }
 
-async function sendConversation2() {
+async function sendConversation2(indice) {
     var requestBody = {
         "model": "gpt-35-turbo-0301",
         "uuid": indice,
         "message": {
             "role": "user",
-            "content": "Elige de forma aleatoria 1 alumno indicando su nombre y apellidos (si tiene) de los que hay dentro del documento que se te ha aportado anteriormente y me respondas sólo con el alumno que has seleccionado"
+            "content": "Elige de forma aleatoria 1 alumno indicando su nombre y apellidos (si tiene) de los que hay dentro del documento que se te ha aportado anteriormente y me respondas sólo con el alumno que has seleccionado. En caso contrario y no haya nombres di que no hay nombres proporcionados y no preguntes nada."
         },
-        "index": "pruebadatosderelatos",
+        "index": indice,
         "vectorization_model": "text-embedding-ada-002-1",
         "temperature": 0.05,
         "origin": "escueladata",

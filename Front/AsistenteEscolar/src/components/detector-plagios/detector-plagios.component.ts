@@ -47,6 +47,7 @@ export class DetectorPlagiosComponent implements OnInit {
     const formData = new FormData();
     formData.append('archivo1', this.pdfFile1?.get('profile')?.value, this.pdfFile1?.get('profile')?.value.name);
     formData.append('archivo2', this.pdfFile2?.get('profile')?.value, this.pdfFile2?.get('profile')?.value.name);
+    formData.append('user', this.authService.session);
   
     this.http.post<any>("http://127.0.0.1:8000/plagio", formData).subscribe(
       (response) => {

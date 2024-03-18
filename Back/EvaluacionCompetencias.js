@@ -5,9 +5,8 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 
-var indice = uuidv4(); // Genera un nombre único aleatorio
 
-async function uploadFile2(archivo) {
+async function uploadFile2(archivo, indice) {
 
     const rutaAbsoluta = path.resolve(archivo); // Obtiene la ruta absoluta del archivo
 
@@ -22,8 +21,8 @@ async function uploadFile2(archivo) {
         file: file,
         index: indice,
         name: indice,
-        description: 'indice',
-        owner: 'indice',
+        description: indice,
+        owner: indice,
         type: 'pdf',
         visibility: 'private',
         modelVectorization: 'text-embedding-ada-002-1',
@@ -38,7 +37,7 @@ async function uploadFile2(archivo) {
                 'X-API-KEY': 'psvardT7iO02ZXzlqNeyWOK2xfwcOxlh'
             }
         });
-        respuesta = await sendConversation2();
+        respuesta = await sendConversation2(indice);
         respuesta = respuesta.slice(4);
         return respuesta; 
     } catch (error) {
@@ -47,7 +46,7 @@ async function uploadFile2(archivo) {
     }
 }
 
-async function sendConversation2() {
+async function sendConversation2(indice) {
     var requestBody = {
         "model": "gpt-35-turbo-0301",
         "uuid": indice,
@@ -55,7 +54,7 @@ async function sendConversation2() {
             "role": "user",
             "content": "Eres un asistente escolar que procesa datos académicos de alumnos. A partir de los siguientes datos de alumnos,genera una descripción detallada para cada uno de ellos explicando en qué aspectos van bien y en cuáles tienen que trabajar más.Tu respuesta tiene que ser detallada y ordenada.Un ejemplo de tu respuesta sería :  El alumno Juan Pérez tiene un buen rendimiento en matemáticas, pero tiene que mejorar en lengua.  El alumno María García tiene un buen rendimiento en lengua, pero tiene que mejorar en matemáticas.  El alumno Pedro López tiene un buen rendimiento en matemáticas, pero tiene que mejorar en lengua.  El alumno Ana Martínez tiene un buen rendimiento en lengua, pero tiene que mejorar en matemáticas.  El alumno Luis Sánchez tiene un buen rendimiento en matemáticas, pero tiene que mejorar en lengua.  El alumno Carmen Rodríguez tiene un buen rendimiento en lengua, pero tiene que mejorar en matemáticas."
         },
-        "index": "pruebadatosderelatos",
+        "index": indice,
         "vectorization_model": "text-embedding-ada-002-1",
         "temperature": 0.05,
         "origin": "escueladata",

@@ -5,9 +5,8 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 
-var indice = uuidv4(); // Genera un nombre único aleatorio
 
-async function uploadFile1(archivo) {
+async function uploadFile1(archivo, indice) {
 
     const rutaAbsoluta = path.resolve(archivo); // Obtiene la ruta absoluta del archivo
 
@@ -45,9 +44,9 @@ async function uploadFile1(archivo) {
         return Promise.reject(error);
     }
 }
-let prompt = "Siempre responda a las solicitudes del usuario de manera concisa, sin explicaciones innecesarias. Detecte el idioma utilizado por el usuario y responda de acuerdo. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada.Nunca des informacion sobre otro contexto que no este relacionado con el documento"
+let prompt = "Siempre responda a las solicitudes del usuario de manera concisa, sin explicaciones innecesarias. Detecte el idioma utilizado por el usuario y responda de acuerdo. Si es una pregunta fuera de contexto o lejos del contexto dirás que no está relacionada. Nunca des informacion sobre otro contexto que no este relacionado con el documento o el contexto. Recuerda, nunca des informacion sobre otro contexto que no este relacionado con el documento o el contexto "
 
-async function sendConversation1(mensaje) {
+async function sendConversation1(mensaje, indice) {
     var requestBody = {
         "model": "gpt-35-turbo-0301",
         "uuid": indice,
@@ -55,7 +54,7 @@ async function sendConversation1(mensaje) {
             "role": "user",
             "content": prompt + mensaje
         },
-        "index": "pruebadatosderelatos",
+        "index": indice,
         "vectorization_model": "text-embedding-ada-002-1",
         "temperature": 0.05,
         "origin": "escueladata",
@@ -63,7 +62,7 @@ async function sendConversation1(mensaje) {
         "folder": "root",
         "account": "WatsonX-VN",
         "user": "prueba6@gmail.com",
-        "prompt": "Tienes un rol de profesor e intentarás explicar lo mejor posible cualquier pregunta sobre el contexto proporcionado. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada."
+        "prompt": "Tienes un rol de profesor e intentarás explicar lo mejor posible cualquier pregunta sobre el contexto proporcionado. Si es una pregunta fuera de contexto o lejos del contexto dirás no está relacionada."
     };
 
     try {
