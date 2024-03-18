@@ -44,7 +44,7 @@ async function uploadFile1(archivo, indice) {
         return Promise.reject(error);
     }
 }
-let prompt = "Siempre responda a las solicitudes del usuario de manera concisa, sin explicaciones innecesarias. Detecte el idioma utilizado por el usuario y responda de acuerdo. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada.Nunca des informacion sobre otro contexto que no este relacionado con el documento"
+let prompt = "Siempre responda a las solicitudes del usuario de manera concisa, sin explicaciones innecesarias. Detecte el idioma utilizado por el usuario y responda de acuerdo. Si es una pregunta fuera de contexto o lejos del contexto dirás que no está relacionada. Nunca des informacion sobre otro contexto que no este relacionado con el documento o el contexto. Recuerda, nunca des informacion sobre otro contexto que no este relacionado con el documento o el contexto "
 
 async function sendConversation1(mensaje, indice) {
     var requestBody = {
@@ -62,7 +62,7 @@ async function sendConversation1(mensaje, indice) {
         "folder": "root",
         "account": "WatsonX-VN",
         "user": "prueba6@gmail.com",
-        "prompt": "Tienes un rol de profesor e intentarás explicar lo mejor posible cualquier pregunta sobre el contexto proporcionado. Si es una pregunta fuera de contexto o lejos del contexcto dirás no está relacionada."
+        "prompt": "Tienes un rol de profesor e intentarás explicar lo mejor posible cualquier pregunta sobre el contexto proporcionado. Si es una pregunta fuera de contexto o lejos del contexto dirás no está relacionada."
     };
 
     try {
