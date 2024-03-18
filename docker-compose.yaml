@@ -1,0 +1,28 @@
+version: '3'
+services:
+  api_3000:
+    build:
+      context: ./Back
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm start"
+
+  api_4000:
+    build:
+      context: ./BD
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    command: sh -c "npm install && npm start"
+
+  front:
+    build:
+      context: ./Front
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api_3000
+      - api_4000
+    command: sh -c "cd AsistenteEscolar && npm install && npm start"
