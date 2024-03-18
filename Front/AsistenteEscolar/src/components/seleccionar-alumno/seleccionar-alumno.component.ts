@@ -24,15 +24,24 @@ export class SeleccionarAlumnoComponent {
     });
   }
 
+  generateUniqueId() {
+    const timestamp = Date.now().toString(36);
+    const randomString = Math.random().toString(36).substr(2, 5);
+    return `${timestamp}-${randomString}`;
+  }
+
   onSubmit(){
     if (!this.pdfFile) {
       console.error('Debe seleccionar un archivo PDF.');
       return;
     }
 
+    const randomId = this.generateUniqueId();
+
     const formData = new FormData();
     formData.append('archivo', this.pdfFile?.get('profile')?.value);
     formData.append('user', this.authService.session);
+    formData.append('id', randomId); // Agregar el ID aleatorio al formulario
 
     this.http.post<any>("http://localhost:3000/seleccionalumno", formData).subscribe(
       (response: any) => {

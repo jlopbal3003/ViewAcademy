@@ -29,7 +29,8 @@ router.get('/', (req, res) => {
 /************************EVALUACION DE COMPETENCIAS***************************/
 router.post('/competencias',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
-    let data = await uploadFile2(archivoPath);
+    const { id } = req.body; // Obtener el ID aleatorio del cuerpo de la solicitud
+    let data = await uploadFile2(archivoPath, id);
     guardarEstadistica(req, 4);
     res.json({ respuesta: data });
 });
@@ -38,7 +39,8 @@ router.post('/competencias',upload.single('archivo'), async (req, res) => {
 
 router.post('/resumen',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
-    let data = await uploadFile4(archivoPath);
+    const { id } = req.body; // Obtener el ID aleatorio del cuerpo de la solicitud
+    let data = await uploadFile4(archivoPath, id);
     guardarEstadistica(req, 2);
     res.json({ respuesta: data });
 });
@@ -48,7 +50,8 @@ router.post('/resumen',upload.single('archivo'), async (req, res) => {
 
 router.post('/seleccionalumno',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
-    let data = await uploadFile3(archivoPath);
+    const { id } = req.body; // Obtener el ID aleatorio del cuerpo de la solicitud
+    let data = await uploadFile3(archivoPath, id);
     guardarEstadistica(req, 3);
     res.json({ respuesta: data });
 });
@@ -57,13 +60,15 @@ router.post('/seleccionalumno',upload.single('archivo'), async (req, res) => {
 
 router.post('/chatpdf',upload.single('archivo'), async (req, res) => {
     const archivoPath = req.file.path;
-    let respuesta = uploadFile1(archivoPath);
+    const { uuid } = req.body; // Obtener el ID aleatorio del cuerpo de la solicitud
+    let respuesta = uploadFile1(archivoPath, uuid);
     res.json({ subirDocumento: respuesta });
 });
 
 router.post('/chatpdfmensaje', async (req, res) => {
     const mensaje = req.body.mensaje;
-    const conversationResponse = await sendConversation1(mensaje);
+    const { uuid } = req.body; // Obtener el ID aleatorio del cuerpo de la solicitud
+    const conversationResponse = await sendConversation1(mensaje, uuid);
     const cleanedContent = conversationResponse.replace(/^AI##/, '');
     guardarEstadistica(req, 1);
     res.json({ respuesta: cleanedContent });
