@@ -7,13 +7,13 @@ const getAllEstadisticas = (req, res) => {
 
 // Crear un nuevo estadistica
 const createEstadistica = (req, res) => {
-    const { user_name, servicio, content, fecha } = req.body;
+    const { user, servicio, content, fecha } = req.body;
 
     // Generar ID de usuario
     const id = estadisticasData.length + 1;
 
     // Crear nuevo objeto de Usuario
-    const newEstadistica = { id, user_name, peticionrealizada, fecha };
+    const newEstadistica = { id, user, servicio, content, fecha };
 
     // Añadir nuevo usuario al array
     estadisticasData.push(newEstadistica);
