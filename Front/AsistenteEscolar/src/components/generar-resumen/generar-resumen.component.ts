@@ -33,6 +33,7 @@ export class GenerarResumenComponent {
 
     const formData = new FormData();
     formData.append('archivo', this.pdfFile?.get('profile')?.value);
+    formData.append('user', this.authService.session);
 
     this.http.post<any>("http://localhost:3000/resumen", formData).subscribe(
       (response: any) => {

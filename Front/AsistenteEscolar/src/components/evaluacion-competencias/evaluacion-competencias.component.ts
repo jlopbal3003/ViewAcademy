@@ -34,6 +34,7 @@ export class EvaluacionCompetenciasComponent {
 
     const formData = new FormData();
     formData.append('archivo', this.pdfFile?.get('profile')?.value);
+    formData.append('user', this.authService.session);
 
     this.http.post<any>("http://localhost:3000/competencias", formData).subscribe(
       (response: any) => {

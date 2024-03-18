@@ -32,6 +32,7 @@ export class SeleccionarAlumnoComponent {
 
     const formData = new FormData();
     formData.append('archivo', this.pdfFile?.get('profile')?.value);
+    formData.append('user', this.authService.session);
 
     this.http.post<any>("http://localhost:3000/seleccionalumno", formData).subscribe(
       (response: any) => {
